@@ -29,6 +29,12 @@ export default function Card({ cards, folderIndex }) {
     }
   }, [cards, index]);
 
+  useEffect(() => {
+    if (!isNaN(index)) {
+      setClicked(false);
+    }
+  }, [index])
+
   const changeLength = (e) => {
     setLength(e.target.value);
     setPageNumber(1);
@@ -46,8 +52,6 @@ export default function Card({ cards, folderIndex }) {
   }
 
   const changeCard = (type) => {
-    setClicked(false);
-
     if (type == "back") {
       setIndex(index - 1);
     } else {
