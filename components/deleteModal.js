@@ -19,7 +19,7 @@ export default function DeleteModal({ func, type, className, button }) {
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
               <div className="text-2xl font-bold p-3 m-3">Delete {type}</div>
               <div className="text-lg mx-5">
-                Are you sure? You can't undo this action afterwards.
+                Are you sure? You can&apos;t undo this action afterwards.
               </div>
               <div className="flex justify-end p-6 space-x-2 rounded-b dark:border-gray-600">
                 <button className="text-black bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" onClick={deleteItem}>Delete</button>
