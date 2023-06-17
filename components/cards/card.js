@@ -103,7 +103,7 @@ export default function Card({ cards, folderIndex }) {
   }
 
   const update = (q, a, updateIndex = null) => {    
-    if (updateIndex === null) {
+    if (updateIndex === null || updateIndex === index) {
       setQues(q);
       setAns(a);
 
