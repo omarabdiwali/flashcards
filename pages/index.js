@@ -11,7 +11,7 @@ export default function Home() {
 
   useEffect(() => {
     document.title = "FlashCards";
-}, [])
+  }, [])
 
   if (!session && status === 'unauthenticated') {
     return (
