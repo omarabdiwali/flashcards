@@ -3,25 +3,15 @@ import Spinner from "@/components/spinner";
 import Toolbar from "@/components/toolbar";
 import { useSession, signIn } from "next-auth/react"
 import { SnackbarProvider } from "notistack";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 
 export default function Home() {
   const { data: session, status } = useSession();
-  const [folders, setFolders] = useState([]);
-  const [completed, setCompleted] = useState(false);
 
   useEffect(() => {
     document.title = "FlashCards";
-    
-    if (status === "authenticated") {
-      fetch("/api/folders").then(res => res.json())
-        .then(data => {
-        setFolders(data.folders);
-        setCompleted(true)
-      }).catch(err => console.error(err));
-    }
-  }, [status])
+}, [])
 
   if (!session && status === 'unauthenticated') {
     return (
@@ -37,10 +27,10 @@ export default function Home() {
 
   return (
     <SnackbarProvider preventDuplicate>
-      {status === "authenticated" && completed ? (
+      {status === "authenticated" ? (
         <>
           <Toolbar />
-          <FolderPage folders={folders} />
+          <FolderPage />
         </>
       ) : <Spinner />}
     </SnackbarProvider> 
