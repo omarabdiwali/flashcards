@@ -1,9 +1,15 @@
 import { enqueueSnackbar } from "notistack";
-import { useEffect, useState } from "react"
+import { useEffect, useCallback, useState } from "react"
 
 export default function FolderModal({ flder, func, type, button, className }) {
   const [open, setOpen] = useState(false);
   const [folder, setFolder] = useState("")
+  
+  const autoFocusFn = useCallback(element => {
+    if (element && open) {
+      element.focus();
+    }
+  }, [open]);
 
   useEffect(() => {
     setFolder(flder);
@@ -24,7 +30,6 @@ export default function FolderModal({ flder, func, type, button, className }) {
 
     func(folder);
     setOpen(false);
-
   }
 
   const revertData = () => {
@@ -45,7 +50,7 @@ export default function FolderModal({ flder, func, type, button, className }) {
               <div className="text-2xl font-bold p-3 m-3">{type} Folder</div>
               <div className="flex flex-col mx-5">
                 <div>Name:</div>
-                <input type="text" className="rounded-lg text-black p-2" value={folder} onChange={e => setFolder(e.target.value)}></input>
+                <input ref={autoFocusFn} type="text" className="rounded-lg text-black p-2" value={folder} onChange={e => setFolder(e.target.value)} />
               </div>
               <div className="flex items-center justify-end p-6 space-x-2 rounded-b dark:border-gray-600">
                 <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={updateData}>{type}</button>

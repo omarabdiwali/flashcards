@@ -1,10 +1,16 @@
 import { enqueueSnackbar } from "notistack";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export default function CardModal({ cardQuestion, cardAnswer, className, func, type="Update", button="Update", index=null, listUpd=null }) {
   const [open, setOpen] = useState(false);
   const [question, setQuestion] = useState();
   const [answer, setAnswer] = useState();
+
+  const autoFocusFn = useCallback(element => {
+    if (element && open) {
+      element.focus();
+    }
+  }, [open]);
 
   useEffect(() => {
     setQuestion(cardQuestion);
@@ -59,7 +65,7 @@ export default function CardModal({ cardQuestion, cardAnswer, className, func, t
               <div className="text-2xl text-white font-bold p-3 m-3">{type} Card</div>
               <div className="flex flex-col mx-5">
                 <div className="text-white">Question:</div>
-                <textarea className="rounded-lg text-black p-2" value={question} onChange={e => setQuestion(e.target.value)}></textarea>
+                <textarea ref={autoFocusFn} className="rounded-lg text-black p-2" value={question} onChange={e => setQuestion(e.target.value)}></textarea>
               </div>
               <div className="flex flex-col mx-5">
                 <div className="text-white">Answer:</div>

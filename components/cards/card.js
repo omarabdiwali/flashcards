@@ -19,7 +19,6 @@ export default function Card({ cards, folderIndex }) {
   const [length, setLength] = useState(5);
   const [pages, setPages] = useState(1);
 
-
   useEffect(() => {
     if (cards.length > 0) {
       setQues(cards[index].question);
@@ -173,10 +172,10 @@ export default function Card({ cards, folderIndex }) {
             <div className="">•</div>
             <div>Showing</div>
             <select value={length} onChange={changeLength} className="bg-black">
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-              </select>
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+            </select>
             <div>cards per page</div>
           </div>
         </div>
