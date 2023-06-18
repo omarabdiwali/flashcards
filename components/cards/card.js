@@ -198,7 +198,7 @@ export default function Card({ cards, folderIndex }) {
           List
         </button>
       </div>
-      <div className={`absolute top-0 bottom-0 right-0 left-0 m-auto flex flex-col m-auto w-1/3 h-1/2 bg-white rounded-lg`}>
+      <div className={`mt-10 m-auto flex flex-col w-1/3 h-1/2 bg-white rounded-lg`}>
         <div className="flex flex-row text-black m-3">
           <div className="flex-1 mt-2">
             {index + 1} / {cardLength}

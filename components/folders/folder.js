@@ -17,13 +17,18 @@ export default function Folder({ folder, index, deleteFolder }) {
     }).catch(err => console.error(err));
   }
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
   return (
-    <div className="border border-slate-700 border-2 cursor-pointer rounded-2xl xs:w-cardsmall sm:w-cardsmall md:w-cardfull xs:min-w-cardsmall sm:min-w-cardsmall bg-black">
-      <div onClick={() => window.location.href = `/folder/${index}`} className="flex flex-row justify-center space-x-4 my-5 max-h-12 h-12">
+    <div onClick={() => window.location.href = `/folder/${index}`} className="border border-slate-700 border-2 cursor-pointer rounded-2xl xs:w-cardsmall sm:w-cardsmall md:w-cardfull xs:min-w-cardsmall sm:min-w-cardsmall bg-black">
+      <div className="flex flex-row justify-center space-x-4 my-5 max-h-12 h-12">
         <div className="h-12 overflow-y-scroll font-semibold text-2xl sm:text-lg text-emerald-200">{name}</div>
       </div>
       <center>
-        <div onClick={() => window.location.href = `/folder/${index}`} className="mx-3 h-body max-h-body text-blue-300 overflow-y-auto">
+        <div className="mx-3 h-body max-h-body text-blue-300 overflow-y-auto">
           <div>
             Number of Cards: {folder.cards.length}
           </div>
@@ -32,7 +37,7 @@ export default function Folder({ folder, index, deleteFolder }) {
           </div>
         </div>
         </center>
-      <div className="flex flex-row justify-center my-3 mx-2 h-12 max-h-12">
+      <div onClick={handleClick} className="flex flex-row justify-center my-3 mx-2 h-12 max-h-12">
         <FolderModal flder={name} type="Update" button="Update" func={updateFolder} className="rounded-lg flex-1 hover:bg-slate-900" />
         <DeleteModal type={"Folder"} button={"Delete"} func={() => deleteFolder(name, index)} className="rounded-lg flex-1 hover:bg-slate-900" />
       </div>
