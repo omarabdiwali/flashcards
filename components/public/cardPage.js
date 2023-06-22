@@ -84,10 +84,10 @@ export default function Card({ cards, creator, date, title }) {
             List
           </button>
         </div>
-        <div className="flex text-white mb-5 mr-4 justify-end space-x-3">
-          <button className="disabled:opacity-60 text-white" onClick={prevPage} disabled={pageNumber === 1}><BsArrowLeftShort /></button>
+        <div className="flex mb-5 mr-4 justify-end space-x-3">
+          <button className="disabled:opacity-60" onClick={prevPage} disabled={pageNumber === 1}><BsArrowLeftShort /></button>
           <div>{pageNumber} of {pages}</div>
-          <button className="disabled:opacity-60 text-white" onClick={nextPage} disabled={pageNumber === pages}><BsArrowRightShort /></button>
+          <button className="disabled:opacity-60" onClick={nextPage} disabled={pageNumber === pages}><BsArrowRightShort /></button>
           <div className="">•</div>
           <div>Showing</div>
           <select value={length} onChange={changeLength} className="bg-black">

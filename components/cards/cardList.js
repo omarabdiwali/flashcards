@@ -22,9 +22,9 @@ export default function CardList({ card, index, update=null, deleteItem=null, pu
         <div className="flex">
           <div className="flex-1 text-slate-700 font-extrabold mb-2">Question</div>
           {!publicPage ? (
-            <div className={`flex space-x-3 justify-end`}>
-              <CardModal listUpd={updateList} index={index} className="text-slate-400" type={"Update"} cardQuestion={question} cardAnswer={answer} func={update} />
-              <DeleteModal type="Card" button="Delete" func={() => deleteItem(index)} className="text-slate-400" />
+            <div className={`flex justify-end`}>
+              <CardModal listUpd={updateList} index={index} className="text-slate-400 mr-3" type={"Update"} cardQuestion={question} cardAnswer={answer} func={update} />
+              <DeleteModal type="Card" button="Delete" func={() => deleteItem(index)} className="text-slate-400 ml-3" />
           </div>
           ) : ""}
         </div>

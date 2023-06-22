@@ -163,15 +163,15 @@ export default function Card({ cards, folderIndex }) {
         </div>
         <div className="flex">
           <div className="mx-7 flex-1">
-          <CardModal className="text-2xl text-white" type={"Create"} button={<BsPlusCircle />} cardQuestion={""} cardAnswer={""} func={create} />
+          <CardModal className="text-2xl" type={"Create"} button={<BsPlusCircle />} cardQuestion={""} cardAnswer={""} func={create} />
           </div>
-          <div className="flex text-white mb-5 mr-4 justify-end space-x-3">
-            <button className="disabled:opacity-60 text-white" onClick={prevPage} disabled={pageNumber === 1}><BsArrowLeftShort /></button>
+          <div className="flex mb-5 mr-4 justify-end space-x-3">
+            <button className="disabled:opacity-60" onClick={prevPage} disabled={pageNumber === 1}><BsArrowLeftShort /></button>
             <div>{pageNumber} of {pages}</div>
-            <button className="disabled:opacity-60 text-white" onClick={nextPage} disabled={pageNumber === pages}><BsArrowRightShort /></button>
+            <button className="disabled:opacity-60" onClick={nextPage} disabled={pageNumber === pages}><BsArrowRightShort /></button>
             <div className="">•</div>
             <div>Showing</div>
-            <select value={length} onChange={changeLength} className="bg-black">
+            <select value={length} onChange={changeLength} className="dark:text-white dark:bg-black text-black">
               <option value={5}>5</option>
               <option value={10}>10</option>
               <option value={20}>20</option>
