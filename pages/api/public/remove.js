@@ -13,28 +13,31 @@ export default async function handler(req, res) {
   }
 
   const profile = session.user;
+  const { index } = JSON.parse(req.body);
 
-  const { index, question, answer } = JSON.parse(req.body);
   let query = { email: profile.email };
-
   await dbConnect();
+
   let user = await Users.findOne(query);
 
   if (user) {
-    let current = user.cards[index].cards;
+    user.cards[index].public = false;
     let id = user.cards[index].id;
-    user.cards[index].cards = [...current, { question: question.toString(), answer: answer.toString() }];
+    let name = user.cards[index].folder;
+    user.save();
 
     let pQuery = { id: id };
-    let pFolder = await Public.findOne(pQuery);
-
-    if (pFolder) {
-      pFolder.cards = user.cards[index].cards;
-      pFolder.save();
+    let publicFolder = await Public.findOne(pQuery);
+    
+    if (publicFolder) {
+      publicFolder.public = false;
+      publicFolder.save()
     }
 
-    user.save();
+    res.status(200).json({ answer: `'${name}' folder is now private!` });    
   }
-
-  res.status(200).json({ answer: "Created card!" });
+  
+  else {
+    res.redirect("/");
+  }
 }

@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "../auth/[...nextauth]"
 import dbConnect from "@/utils/dbConnect";
 import Users from "@/models/Users";
+import Public from "@/models/Public";
 
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
@@ -19,14 +20,19 @@ export default async function handler(req, res) {
   let user = await Users.findOne(query);
 
   if (user) {
-    Users.findOne(query).then(user => {
-      user.cards[index].folder = folder;
-      user.save();
-    }).catch(err => {
-      console.error(err);
-      res.status(400).json({ error: err });
-    })
+    user.cards[index].folder = folder;
+    let id = user.cards[index].id;
+    user.save();
 
-    res.status(200).json({ answer: "Folder has been updated." });
+    let pQuery = { id: id };
+    
+    let pub = await Public.findOne(pQuery);
+    
+    if (pub) {
+      pub.folder = folder;
+      pub.save();
+    }
+    
+   res.status(200).json({ answer: "Folder has been updated." });
   }
 }

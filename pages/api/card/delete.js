@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "../auth/[...nextauth]"
 import dbConnect from "@/utils/dbConnect";
 import Users from "@/models/Users";
+import Public from "@/models/Public";
 
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
@@ -19,18 +20,23 @@ export default async function handler(req, res) {
   let user = await Users.findOne(query);
 
   if (user) {
-    Users.findOne(query).then(user => {
-      let newCards = user.cards;
-      let cards = user.cards[folder].cards;
-      cards.splice(index, 1);
-      newCards[folder].cards = [...cards];
-      user.cards = [...newCards];
+    let newCards = user.cards;
+    let cards = user.cards[folder].cards;
+    let id = user.cards[folder].id;
+    
+    cards.splice(index, 1);
+    newCards[folder].cards = [...cards];
+    user.cards = [...newCards];
 
-      user.save();
-    }).catch(err => {
-      console.error(err);
-      res.status(400).json({error: err});
-    })
+    let pQuery = { id: id };
+    let pFolder = await Public.findOne(pQuery);
+
+    if (pFolder) {
+      pFolder.cards = [...cards];
+      pFolder.save();
+    }
+
+    user.save();
 
     res.status(200).json({ answer: "Card has been deleted!" });
   } else {

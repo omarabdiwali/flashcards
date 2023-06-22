@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import CardModal from "./cardModal"
 import DeleteModal from "../deleteModal";
 
-export default function CardList({ card, index, update, deleteItem }) {
+export default function CardList({ card, index, update=null, deleteItem=null, publicPage=false }) {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
 
@@ -21,10 +21,12 @@ export default function CardList({ card, index, update, deleteItem }) {
       <div className="flex-1 flex flex-col">
         <div className="flex">
           <div className="flex-1 text-slate-700 font-extrabold mb-2">Question</div>
-          <div className="flex space-x-3 justify-end">
-            <CardModal listUpd={updateList} index={index} className="text-slate-400" type={"Update"} cardQuestion={question} cardAnswer={answer} func={update} />
-            <DeleteModal type="Card" button="Delete" func={() => deleteItem(index)} className="text-slate-400" />
+          {!publicPage ? (
+            <div className={`flex space-x-3 justify-end`}>
+              <CardModal listUpd={updateList} index={index} className="text-slate-400" type={"Update"} cardQuestion={question} cardAnswer={answer} func={update} />
+              <DeleteModal type="Card" button="Delete" func={() => deleteItem(index)} className="text-slate-400" />
           </div>
+          ) : ""}
         </div>
         <div className="">{question}</div>
       </div>

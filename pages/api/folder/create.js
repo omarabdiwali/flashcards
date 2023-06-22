@@ -3,6 +3,8 @@ import { authOptions } from "../auth/[...nextauth]"
 import dbConnect from "@/utils/dbConnect";
 import Users from "@/models/Users";
 
+let crypto = require("crypto");
+
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
 
@@ -15,9 +17,18 @@ export default async function handler(req, res) {
   const { name } = JSON.parse(req.body);
   
   let query = { email: profile.email }
-  let folder = { folder: name.toString(), cards: [], date: new Date() };
+  let id = crypto.randomBytes(5).toString('hex');
 
   await dbConnect();
+
+  let created = await Users.findOne({ "cards.id": id });
+
+  while (created) {
+    id = crypto.randomBytes(5).toString('hex');
+    created = await Users.findOne({ "cards.id": id });
+  }
+  
+  let folder = { id: id, folder: name.toString(), cards: [], date: new Date(), public: false };
   let user = await Users.findOne(query);
 
   if (user) {
