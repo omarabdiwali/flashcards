@@ -62,13 +62,13 @@ export default function CardModal({ cardQuestion, cardAnswer, className, func, t
         <div className={`fixed flex h-screen inset-0 z-50 transition-all duration-300 delay-150 ease-in-out ${!open ? "opacity-0 hidden" : "opacity-100"} w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-96 max-h-full`}>
           <div className="relative m-auto w-full max-w-2xl max-h-full">
             <div className="relative bg-white rounded-lg shadow bg-slate-300 dark:bg-gray-700">
-              <div className="text-2xl font-bold p-3 m-3">{type} Card</div>
+              <div className="text-2xl font-bold p-3 m-3 dark:text-white">{type} Card</div>
               <div className="flex flex-col mx-5">
-                <div>Question:</div>
+                <div className="dark:text-white">Question:</div>
                 <textarea ref={autoFocusFn} className="rounded-lg text-black p-2" value={question} onChange={e => setQuestion(e.target.value)}></textarea>
               </div>
               <div className="flex flex-col mx-5">
-                <div>Answer:</div>
+                <div className="dark:text-white">Answer:</div>
                 <textarea className="rounded-lg text-black p-2" value={answer} onChange={e => setAnswer(e.target.value)}></textarea>
               </div>
               <div className="flex items-center justify-end p-6 space-x-2 rounded-b dark:border-gray-600">

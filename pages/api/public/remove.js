@@ -27,12 +27,10 @@ export default async function handler(req, res) {
     user.save();
 
     let pQuery = { id: id };
+   
     let publicFolder = await Public.findOne(pQuery);
-    
-    if (publicFolder) {
-      publicFolder.public = false;
-      publicFolder.save()
-    }
+    publicFolder.public = false;
+    publicFolder.save()
 
     res.status(200).json({ answer: `'${name}' folder is now private!` });    
   }

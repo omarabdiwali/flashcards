@@ -1,6 +1,6 @@
 import { useSnackbar } from "notistack";
 import { useState } from "react";
-import { MdPublic, MdPublicOff } from "react-icons/md";
+import { MdPublic, MdPublicOff, MdLink } from "react-icons/md";
 import FolderModal from "./folderModal";
 import DeleteModal from "../deleteModal";
 
@@ -19,14 +19,8 @@ export default function Folder({ folder, index, deleteFolder }) {
     }).catch(err => console.error(err));
   }
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  }
-
   const makePublic = (e) => {
     e.preventDefault();
-    e.stopPropagation();
 
     fetch("/api/public/allow", {
       method: "POST",
@@ -39,7 +33,6 @@ export default function Folder({ folder, index, deleteFolder }) {
 
   const makePrivate = (e) => {
     e.preventDefault();
-    e.stopPropagation();
 
     fetch("/api/public/remove", {
       method: "POST",
@@ -50,12 +43,19 @@ export default function Folder({ folder, index, deleteFolder }) {
     }).catch(err => console.error(err));
   }
 
+  const openPublic = (e) => {
+    e.preventDefault();
+
+    let url = `/public/${folder.id}`;
+    window.open(url, '_blank').focus();
+  }
 
   return (
-    <div onClick={() => window.location.href = `/folder/${index}`} className="border border-slate-700 border-2 cursor-pointer rounded-2xl xs:w-cardsmall sm:w-cardsmall md:w-cardfull xs:min-w-cardsmall sm:min-w-cardsmall">
-      <div className="flex mx-5 flex-row space-x-4 my-5 max-h-12 h-12 dark:text-emerald-200">
+    <div className="border border-slate-700 border-2 rounded-2xl xs:w-cardsmall sm:w-cardsmall md:w-cardfull xs:min-w-cardsmall sm:min-w-cardsmall">
+      <div className="flex mx-5 flex-row my-5 max-h-12 h-12 dark:text-emerald-200">
         <div className="flex-1 m-auto justify-center overflow-y-scroll font-semibold text-xl">{name}</div>
-        <button onClick={!pub ? makePublic : makePrivate} className="m-auto rounded-lg py-2 px-2 text-2xl cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-900">{pub ? <MdPublic /> : <MdPublicOff />}</button>
+        <button onClick={openPublic} className="my-auto rounded-lg py-2 px-2 text-2xl cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-900"><MdLink /></button>
+        <button onClick={!pub ? makePublic : makePrivate} className="my-auto rounded-lg py-2 px-2 text-2xl cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-900">{pub ? <MdPublic /> : <MdPublicOff />}</button>
       </div>
       <center>
         <div className="mx-3 h-body max-h-body dark:text-blue-300 overflow-y-auto">
@@ -67,7 +67,7 @@ export default function Folder({ folder, index, deleteFolder }) {
           </div>
         </div>
         </center>
-      <div onClick={handleClick} className="flex flex-row justify-center my-3 mx-2 h-12 max-h-12">
+      <div className="flex flex-row justify-center my-3 mx-2 h-12 max-h-12">
         <FolderModal flder={name} type="Update" button="Update" func={updateFolder} className="rounded-lg flex-1 dark:hover:bg-slate-900 hover:bg-slate-200" />
         <DeleteModal type={"Folder"} button={"Delete"} func={() => deleteFolder(name, index)} className="rounded-lg flex-1 dark:hover:bg-slate-900 hover:bg-slate-200" />
       </div>

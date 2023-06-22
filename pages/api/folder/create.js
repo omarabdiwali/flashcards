@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "../auth/[...nextauth]"
 import dbConnect from "@/utils/dbConnect";
 import Users from "@/models/Users";
+import Public from "@/models/Public";
 
 let crypto = require("crypto");
 
@@ -32,13 +33,11 @@ export default async function handler(req, res) {
   let user = await Users.findOne(query);
 
   if (user) {
-    Users.findOne(query).then(user => {
-      user.cards.push(folder);
-      user.save();
-    }).catch(err => {
-      console.error(err);
-      res.status(400).json({error: err});
-    })
+    user.cards.push(folder);
+    user.save();
+    let data = { id: folder.id, user: user.name, email: profile.email, folder: folder.folder, cards: folder.cards, date: folder.date, public: folder.public };
+
+    await Public.create(data);
   }
 
   else {

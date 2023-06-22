@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
 import CardList from "../cards/cardList";
+import CardPage from "../cards/cardPage";
+import { SnackbarProvider } from "notistack";
 
-export default function Card({ cards, creator, date, title }) {
+export default function Card({ cards, creator, date, title, email, id }) {
+  const { data: session, status } = useSession();
+
   const [clicked, setClicked] = useState(false);
   const [index, setIndex] = useState(0);
   const [ques, setQues] = useState();
@@ -15,6 +20,7 @@ export default function Card({ cards, creator, date, title }) {
   const [pageEnd, setPageEnd] = useState(5);
   const [length, setLength] = useState(5);
   const [pages, setPages] = useState(1);
+  const [folderIndex, setFolderIndex] = useState();
 
   useEffect(() => {
     if (cards.length > 0) {
@@ -57,6 +63,21 @@ export default function Card({ cards, creator, date, title }) {
     setPageStart(pageEnd);
     setPageEnd(pageEnd + length);
     setPageNumber(pageNumber + 1);
+  }
+
+  if (status === "authenticated" && session.user.email === email) {
+    fetch("/api/public/location", {
+      method: "POST",
+      body: JSON.stringify({ id: id })
+    }).then(res => res.json()).then(data => {
+      setFolderIndex(data.index);
+    }).catch(err => console.error(err));
+
+    return (
+      <SnackbarProvider preventDuplicate>
+        <CardPage index={folderIndex} />
+      </SnackbarProvider>
+    )
   }
 
   if (cards.length == 0) {

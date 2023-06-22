@@ -30,12 +30,9 @@ export default async function handler(req, res) {
 
     let pQuery = { id: id };
     let pFolder = await Public.findOne(pQuery);
-
-    if (pFolder) {
-      pFolder.cards = [...cards];
-      pFolder.save();
-    }
-
+    pFolder.cards = [...cards];
+    
+    pFolder.save();
     user.save();
 
     res.status(200).json({ answer: "Card has been deleted!" });

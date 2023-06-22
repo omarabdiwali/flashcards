@@ -27,12 +27,9 @@ export default async function handler(req, res) {
 
     let pQuery = { id: id };
     let pFolder = await Public.findOne(pQuery);
-
-    if (pFolder) {
-      pFolder.cards = user.cards[index].cards;
-      pFolder.save();
-    }
-
+    pFolder.cards = user.cards[index].cards;
+    
+    pFolder.save();
     user.save();
   }
 

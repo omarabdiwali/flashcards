@@ -86,7 +86,7 @@ export default function Page() {
 
       <div className="flex h-screen">
         <div className="w-full">
-          <CardPage title={folder.folder} cards={folder.cards} creator={folder.user} date={folder.date.toString().substring(0, 10)} />
+          <CardPage title={folder.folder} id={folder.id} email={folder.email} cards={folder.cards} creator={folder.user} date={folder.date.toString().substring(0, 10)} />
         </div>
       </div>
     </>

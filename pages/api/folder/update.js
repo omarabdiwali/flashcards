@@ -27,11 +27,8 @@ export default async function handler(req, res) {
     let pQuery = { id: id };
     
     let pub = await Public.findOne(pQuery);
-    
-    if (pub) {
-      pub.folder = folder;
-      pub.save();
-    }
+    pub.folder = folder;
+    pub.save()  
     
    res.status(200).json({ answer: "Folder has been updated." });
   }
