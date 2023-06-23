@@ -56,7 +56,7 @@ export default function Page() {
         <Toolbar />
         <center>
           <form onSubmit={handleSubmit}>
-            <input value={search} onChange={handleChange} type="text" className="w-9/12 h-8 border border-2 focus:outline-none px-2 py-5 border-slate-700 bg-black rounded-xl" />
+            <input value={search} onChange={handleChange} type="text" className="w-9/12 h-8 border border-2 focus:outline-none px-4 py-5 border-slate-700 bg-black rounded-2xl" />
           </form>
           
           <div className="text-3xl mt-6">
@@ -76,18 +76,20 @@ export default function Page() {
       <Toolbar />
       <center>
         <form onSubmit={handleSubmit}>
-          <input value={search} onChange={handleChange} type="text" className="w-9/12 h-8 border border-2 focus:outline-none px-2 py-5 border-slate-700 bg-black rounded-xl" />
+          <input value={search} onChange={handleChange} type="text" className="w-9/12 h-8 border border-2 focus:outline-none px-4 py-5 border-slate-700 bg-black rounded-2xl" />
         </form>
-        <div className="text-3xl mt-6">
-          Results for &apos;{curValue}&apos;
-        </div>
         {completed ? (
-          <div className="flex m-auto space-x-5 pt-4 pb-7 space-y-5 px-5 flex-wrap rounded-lg mt-5">
-            <div></div>
-            {folders.map((folder, index) => {
-              return <Folders folder={folder} key={index} />;
-            })}
-          </div>
+          <>
+            <div className="text-3xl mt-6">
+              Results for &apos;{curValue}&apos;
+            </div>
+            <div className="flex m-auto space-x-5 pt-4 pb-7 space-y-5 px-5 flex-wrap rounded-lg mt-5">
+              <div></div>
+              {folders.map((folder, index) => {
+                return <Folders folder={folder} key={index} />;
+              })}
+            </div>
+          </>
         ) : <Spinner />}
       </center>
     </>
