@@ -45,9 +45,7 @@ export default function Folder({ folder, index, deleteFolder }) {
 
   const openPublic = (e) => {
     e.preventDefault();
-
-    let url = `/public/${folder.id}`;
-    window.open(url, '_blank').focus();
+    window.location.href = `/public/${folder.id}`;
   }
 
   return (

@@ -18,31 +18,34 @@ export default function CardModal({ cardQuestion, cardAnswer, className, func, t
   }, [cardQuestion, cardAnswer]);
 
   const updateData = () => {
-    let removeSpacesQ = question.replace(/ /g, "");
-    let removeSpacesA = answer.replace(/ /g, "");
+    let questionValue = question.trim();
+    let answerValue = answer.trim();
 
-    if (removeSpacesQ.length === 0 || removeSpacesA.length === 0) {
+    if (questionValue.length === 0 || answerValue.length === 0) {
       enqueueSnackbar("Values cannot be empty.", { autoHideDuration: 3000, variant: "error" });
       return;
     }
 
-    if (question === cardQuestion && answer === cardAnswer) {
+    if (questionValue === cardQuestion && answerValue === cardAnswer) {
       enqueueSnackbar("Values are not changed.", { autoHideDuration: 3000, variant: "info" });
       return;
     }
 
-    func(question.trim(), answer.trim(), index);
+    func(questionValue, answerValue, index);
     
     if (index !== null) {
-      listUpd(question, answer);
+      listUpd(questionValue, answerValue);
     }
 
-    setOpen(false);
+    setQuestion(questionValue);
+    setAnswer(answerValue);
 
-    if (type == "Create") {
+    if (type === "Create") {
       setQuestion("");
       setAnswer("");
     }
+
+    setOpen(false);
   }
 
   const revertData = () => {

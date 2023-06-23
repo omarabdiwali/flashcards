@@ -16,19 +16,20 @@ export default function FolderModal({ flder, func, type, button, className }) {
   }, [flder]);
 
   const updateData = () => {
-    const removeSpaces = folder.replace(/ /g, "");
+    let folderValue = folder.trim();
     
-    if (removeSpaces.length === 0) {
+    if (folderValue.length === 0) {
       enqueueSnackbar("Value cannot be empty.", { autoHideDuration: 3000, variant: "error" });
       return;
     }
 
-    if (folder === flder) {
+    if (folderValue === flder) {
       enqueueSnackbar("Value is not changed.", { autoHideDuration: 3000, variant: "info" });
       return;
     }
 
-    func(folder.trim());
+    func(folderValue);
+    setFolder(folderValue);
     setOpen(false);
   }
 
