@@ -20,8 +20,7 @@ export default function Home() {
     let removeSpaces = search.replace(/ /g, "");
     if (removeSpaces.length === 0) return;
 
-    let searchValue = encodeURI(search.trim());
-    searchValue = searchValue.replace(/%20/g, "+");
+    let searchValue = encodeURIComponent(search.trim());
     window.location.href = `/search/${searchValue}`;
   }
 

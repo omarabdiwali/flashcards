@@ -16,11 +16,16 @@ export default function Page() {
     if (!router.isReady) return;
 
     let search = router.query.value;
-    search = decodeURI(search);
-    search = search.replace(/\\+/g, " ");
-
     setSearch(search);
-    setCurValue(search);
+    setCurValue(`'${search}'`);
+
+    search = encodeURIComponent(search);
+    search = search.replace(/%20/g, "+");
+    
+    history.replaceState({}, "Title", `/search/${search}`);
+    
+    search = search.replace(/\+/g, " ");
+    search = decodeURIComponent(search);
 
     fetch('/api/search', {
       method: "POST",
@@ -42,8 +47,7 @@ export default function Page() {
     let removeSpaces = search.replace(/ /g, "");
     if (removeSpaces.length === 0) return;
 
-    let searchValue = encodeURI(search.trim());
-    searchValue = searchValue.replace(/%20/g, "+");
+    let searchValue = encodeURIComponent(search.trim());
     window.location.href = `/search/${searchValue}`;
   }
 
@@ -51,7 +55,7 @@ export default function Page() {
     return (
       <>
         <Head>
-          <title>&apos;{curValue}&apos; Folders - FlashCards</title>
+          <title>{`${curValue} Folders - FlashCards`}</title>
         </Head>
         <Toolbar />
         <center>
@@ -60,7 +64,7 @@ export default function Page() {
           </form>
           
           <div className="text-3xl mt-6">
-            No Results for &apos;{curValue}&apos;
+            No Results for {curValue}
           </div>
         </center>
       </>
@@ -70,7 +74,7 @@ export default function Page() {
   return (
     <>
       <Head>
-        <title>&apos;{curValue}&apos; Folders - FlashCards</title>
+        <title>{`${curValue} Folders - FlashCards`}</title>
       </Head>
       
       <Toolbar />
@@ -81,7 +85,7 @@ export default function Page() {
         {completed ? (
           <>
             <div className="text-3xl mt-6">
-              Results for &apos;{curValue}&apos;
+              Results for {curValue}
             </div>
             <div className="flex m-auto space-x-5 pt-4 pb-7 space-y-5 px-5 flex-wrap rounded-lg mt-5">
               <div></div>
