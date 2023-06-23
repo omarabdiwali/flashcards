@@ -28,7 +28,7 @@ export default function Page() {
           setApproved(true);
           setCompleted(true);
           let title = data.folder.folder.replace(/ /g, "+");
-          window.history.pushState("string", "Title", `/public/${router.query.id[0]}/${title}`);
+          window.history.replaceState({}, "Title", `/public/${router.query.id[0]}/${title}`);
         } else {
           setCompleted(true);
         }

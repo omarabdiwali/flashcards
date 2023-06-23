@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { setCookie } from "cookies-next";
 import { BsFolderPlus } from "react-icons/bs";
 import { enqueueSnackbar } from "notistack";
 import Folder from "./folder";
@@ -15,7 +14,6 @@ export default function FolderPage() {
     .then(data => {
       setFolders(data.folders);
       setCompleted(true);
-      setCookie("folders", `${data.folders.length}`);
     }).catch(err => console.error(err));
   }, [])
 
