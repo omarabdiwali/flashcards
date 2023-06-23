@@ -10,7 +10,7 @@ export default function Toolbar() {
         <div onClick={() => window.location.href = "/"} className="cursor-pointer text-xl text-slate-400 font-extrabold">
           FlashCards
         </div>
-        <div className={`flex flex-row flex-1 justify-end`}>
+        <div className={`flex flex-row flex-1 justify-end ${status === "loading" ? "hidden" : ""}`}>
           <button onClick={() => status === "authenticated" ? signOut() : signIn()} className="cursor-pointer mx-4 bg-slate-900 text-white font-semibold px-5 rounded shadow">
             {status === "authenticated" ? "Sign Out" : "Sign In"}
           </button>
