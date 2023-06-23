@@ -41,7 +41,6 @@ export default function Page() {
 
     let removeSpaces = search.replace(/ /g, "");
     if (removeSpaces.length === 0) return;
-    if (search === curValue) return;
 
     let searchValue = encodeURI(search.trim());
     searchValue = searchValue.replace(/%20/g, "+");
