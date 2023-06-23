@@ -28,7 +28,7 @@ export default function FolderModal({ flder, func, type, button, className }) {
       return;
     }
 
-    func(folder);
+    func(folder.trim());
     setOpen(false);
   }
 

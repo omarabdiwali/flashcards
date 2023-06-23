@@ -3,8 +3,8 @@ import { useState, useEffect, useCallback } from "react";
 
 export default function CardModal({ cardQuestion, cardAnswer, className, func, type="Update", button="Update", index=null, listUpd=null }) {
   const [open, setOpen] = useState(false);
-  const [question, setQuestion] = useState();
-  const [answer, setAnswer] = useState();
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
 
   const autoFocusFn = useCallback(element => {
     if (element && open) {
@@ -31,7 +31,7 @@ export default function CardModal({ cardQuestion, cardAnswer, className, func, t
       return;
     }
 
-    func(question, answer, index);
+    func(question.trim(), answer.trim(), index);
     
     if (index !== null) {
       listUpd(question, answer);

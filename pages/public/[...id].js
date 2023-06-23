@@ -27,7 +27,8 @@ export default function Page() {
           setFolder(data.folder);
           setApproved(true);
           setCompleted(true);
-          let title = data.folder.folder.replace(/ /g, "+");
+          let title = encodeURIComponent(data.folder.folder);
+          title = data.folder.folder.replace(/%20/g, "+");
           window.history.replaceState({}, "Title", `/public/${router.query.id[0]}/${title}`);
         } else {
           setCompleted(true);
