@@ -1,6 +1,7 @@
 import Folders from "@/components/public/folders";
 import Spinner from "@/components/spinner";
 import Toolbar from "@/components/toolbar";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -50,6 +51,9 @@ export default function Page() {
   if (completed && folders.length === 0) {
     return (
       <>
+        <Head>
+          <title>{curValue} Folders - FlashCards</title>
+        </Head>
         <Toolbar />
         <center>
           <form onSubmit={handleSubmit}>
@@ -66,8 +70,11 @@ export default function Page() {
 
   return (
     <>
-      <Toolbar />
+      <Head>
+        <title>{curValue} Folders - FlashCards</title>
+      </Head>
       
+      <Toolbar />
       <center>
         <form onSubmit={handleSubmit}>
           <input value={search} onChange={handleChange} type="text" className="w-9/12 h-8 border border-2 focus:outline-none px-2 py-5 border-slate-700 bg-black rounded-xl" />

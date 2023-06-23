@@ -4,6 +4,7 @@ import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
 import CardList from "../cards/cardList";
 import CardPage from "../cards/cardPage";
 import { SnackbarProvider } from "notistack";
+import Spinner from "../spinner";
 
 export default function Card({ cards, creator, date, title, email, id }) {
   const { data: session, status } = useSession();
@@ -75,7 +76,7 @@ export default function Card({ cards, creator, date, title, email, id }) {
 
     return (
       <SnackbarProvider preventDuplicate>
-        <CardPage index={folderIndex} />
+        {!isNaN(folderIndex) ? <CardPage index={folderIndex} /> : <Spinner />}
       </SnackbarProvider>
     )
   }
