@@ -52,7 +52,7 @@ export default function Page() {
     return (
       <>
         <Head>
-          <title>{curValue} Folders - FlashCards</title>
+          <title>&apos;{curValue}&apos; Folders - FlashCards</title>
         </Head>
         <Toolbar />
         <center>
@@ -71,7 +71,7 @@ export default function Page() {
   return (
     <>
       <Head>
-        <title>{curValue} Folders - FlashCards</title>
+        <title>&apos;{curValue}&apos; Folders - FlashCards</title>
       </Head>
       
       <Toolbar />
