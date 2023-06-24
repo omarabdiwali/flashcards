@@ -50,13 +50,13 @@ export default function Folder({ folder, index, deleteFolder }) {
 
   return (
     <div className="border border-slate-700 border-2 rounded-2xl xs:w-cardsmall sm:w-cardsmall md:w-cardfull xs:min-w-cardsmall sm:min-w-cardsmall">
-      <div className="flex mx-5 flex-row my-5 max-h-12 h-12 dark:text-emerald-200">
+      <div className="flex mx-5 flex-row my-5 max-h-12 h-12 text-emerald-200">
         <div className="flex-1 m-auto justify-center overflow-y-scroll font-semibold text-xl">{name}</div>
-        <button onClick={openPublic} className="my-auto rounded-lg py-2 px-2 text-2xl cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-900"><MdLink /></button>
-        <button onClick={!pub ? makePublic : makePrivate} className="my-auto rounded-lg py-2 px-2 text-2xl cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-900">{pub ? <MdPublic /> : <MdPublicOff />}</button>
+        <button onClick={openPublic} className="my-auto rounded-lg py-2 px-2 text-2xl cursor-pointer hover:bg-slate-900"><MdLink /></button>
+        <button onClick={!pub ? makePublic : makePrivate} className="my-auto rounded-lg py-2 px-2 text-2xl cursor-pointer hover:bg-slate-900">{pub ? <MdPublic /> : <MdPublicOff />}</button>
       </div>
       <center>
-        <div className="mx-3 h-body max-h-body dark:text-blue-300 overflow-y-auto">
+        <div className="mx-3 h-body max-h-body text-blue-300 overflow-y-auto">
           <div>
             Number of Cards: {folder.cards.length}
           </div>
@@ -66,8 +66,8 @@ export default function Folder({ folder, index, deleteFolder }) {
         </div>
         </center>
       <div className="flex flex-row justify-center my-3 mx-2 h-12 max-h-12">
-        <FolderModal flder={name} type="Update" button="Update" func={updateFolder} className="rounded-lg flex-1 dark:hover:bg-slate-900 hover:bg-slate-200" />
-        <DeleteModal type={"Folder"} button={"Delete"} func={() => deleteFolder(name, index)} className="rounded-lg flex-1 dark:hover:bg-slate-900 hover:bg-slate-200" />
+        <FolderModal flder={name} type="Update" button="Update" func={updateFolder} className="rounded-lg flex-1 hover:bg-slate-900" />
+        <DeleteModal type={"Folder"} button={"Delete"} func={() => deleteFolder(name, index)} className="rounded-lg flex-1 hover:bg-slate-900" />
       </div>
     </div>
   )

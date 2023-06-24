@@ -171,7 +171,7 @@ export default function Card({ cards, folderIndex }) {
             <button className="disabled:opacity-60" onClick={nextPage} disabled={pageNumber === pages}><BsArrowRightShort /></button>
             <div className="">•</div>
             <div>Showing</div>
-            <select value={length} onChange={changeLength} className="dark:text-white dark:bg-black text-black">
+            <select value={length} onChange={changeLength} className="text-white bg-black">
               <option value={5}>5</option>
               <option value={10}>10</option>
               <option value={20}>20</option>
