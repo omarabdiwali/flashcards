@@ -9,7 +9,7 @@ let crypto = require("crypto");
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
 
-  if (!session) {
+  if (!session || !req.body) {
     res.redirect("/");
     return;
   }

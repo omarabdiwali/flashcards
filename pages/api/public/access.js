@@ -5,12 +5,13 @@ import Public from "@/models/Public";
 
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
-  let email;
 
-  if (session) {
-    const profile = session.user;
-    email = profile.email;
+  if (!req.body || !session) {
+    res.redirect("/");
+    return;
   }
+
+  const profile = session.user;
 
   const { code } = JSON.parse(req.body);
   let query = { id: code };
@@ -19,7 +20,7 @@ export default async function handler(req, res) {
   let folder = await Public.findOne(query);
 
   if (folder) {
-    if (folder.public || folder.email === email) {
+    if (folder.public || folder.email === profile.email) {
       res.status(200).send({ folder: folder, answer: "Folder is public." });
     } else {
       res.status(200).send({ answer: "Folder is private." });

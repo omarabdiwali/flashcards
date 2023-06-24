@@ -7,7 +7,7 @@ import Public from "@/models/Public";
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
 
-  if (!session) {
+  if (!req.body || !session) {
     res.redirect("/");
     return;
   }
