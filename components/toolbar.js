@@ -11,7 +11,7 @@ export default function Toolbar() {
           FlashCards
         </div>
         <div className={`flex flex-row flex-1 justify-end ${status === "loading" ? "hidden" : ""}`}>
-          <button onClick={() => status === "authenticated" ? signOut() : signIn()} className="cursor-pointer mx-4 bg-slate-900 text-white font-semibold px-5 rounded shadow">
+          <button onClick={() => status === "authenticated" ? signOut() : signIn('google')} className="cursor-pointer mx-4 bg-slate-900 text-white font-semibold px-5 rounded shadow">
             {status === "authenticated" ? "Sign Out" : "Sign In"}
           </button>
         </div>
