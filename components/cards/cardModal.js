@@ -64,7 +64,7 @@ export default function CardModal({ cardQuestion, cardAnswer, className, func, t
       <div className="z-50">
         <div className={`fixed flex h-screen inset-0 z-50 transition-all duration-300 delay-150 ease-in-out ${!open ? "opacity-0 hidden" : "opacity-100"} w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-96 max-h-full`}>
           <div className="relative m-auto w-full max-w-2xl max-h-full">
-            <div className="relative rounded-lg shadow bg-slate-300 bg-gray-700">
+            <div className="relative rounded-lg shadow bg-slate-700">
               <div className="text-2xl font-bold p-3 m-3 text-white">{type} Card</div>
               <div className="flex flex-col mx-5">
                 <div className="text-white">Question:</div>

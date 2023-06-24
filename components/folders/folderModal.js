@@ -47,7 +47,7 @@ export default function FolderModal({ flder, func, type, button, className }) {
       <div className={`cursor-auto ${!open ? "hidden" : ""} z-50`}>
         <div className={`absolute flex h-screen inset-0 z-50 transition-all duration-300 delay-150 ease-in-out ${!open ? "opacity-0 hidden" : "opacity-100"} w-full overflow-x-hidden overflow-y-auto md:inset-0 h-96 max-h-full`}>
           <div className="relative m-auto w-full max-w-2xl max-h-full">
-            <div className="relative bg-white rounded-lg shadow bg-gray-700">
+            <div className="relative bg-white rounded-lg shadow bg-slate-700">
               <div className="text-2xl font-bold p-3 m-3">{type} Folder</div>
               <div className="flex flex-col mx-5">
                 <div>Name:</div>
