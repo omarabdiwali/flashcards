@@ -76,7 +76,7 @@ export default function Card({ cards, creator, date, title, email, id }) {
 
     return (
       <SnackbarProvider preventDuplicate>
-        {!isNaN(folderIndex) ? <CardPage index={folderIndex} /> : <Spinner />}
+        <CardPage index={folderIndex} />
       </SnackbarProvider>
     )
   }
