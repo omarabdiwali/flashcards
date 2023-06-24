@@ -34,7 +34,7 @@ export default function Home() {
 
         <center>
           <form onSubmit={handleSubmit}>
-            <input value={search} onChange={handleChange} type="text" className="w-9/12 h-8 border border-2 focus:outline-none px-2 py-5 border-slate-700 bg-black rounded-lg" />
+            <input value={search} onChange={handleChange} type="text" className="w-9/12 h-8 border border-2 focus:outline-none px-4 py-5 border-slate-700 bg-black rounded-2xl" />
           </form>
         </center>
       </>
