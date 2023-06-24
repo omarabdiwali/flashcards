@@ -52,8 +52,7 @@ export default function FolderPage() {
   
   return (
     <>
-      <div className="flex">
-        <div className="flex-1 mx-3 my-6 text-3xl font-bold">Folders</div>
+      <div className="flex mx-3 my-6 justify-end">
         <FolderModal type="Create" button={<BsFolderPlus />} func={createFolder} flder={""} className="mr-7 cursor-pointer text-2xl transition ease-in-out delay-150 hover:-translate-y-1 duration-300 hover:scale-110" />
       </div>
       {!completed ? <Spinner /> : ""}
