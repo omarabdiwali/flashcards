@@ -51,26 +51,6 @@ export default function Page() {
     window.location.href = `/search/${searchValue}`;
   }
 
-  if (completed && folders.length === 0) {
-    return (
-      <>
-        <Head>
-          <title>{`${curValue} Folders | FlashCards`}</title>
-        </Head>
-        <Toolbar />
-        <center>
-          <form onSubmit={handleSubmit}>
-            <input value={search} onChange={handleChange} type="text" className="w-9/12 h-8 border border-2 focus:outline-none px-4 py-5 border-slate-700 bg-black rounded-2xl" />
-          </form>
-          
-          <div className="text-3xl mt-6">
-            No Results for {curValue}
-          </div>
-        </center>
-      </>
-    )
-  }
-
   return (
     <>
       <Head>
@@ -85,7 +65,7 @@ export default function Page() {
         {completed ? (
           <>
             <div className="text-3xl mt-6">
-              Results for {curValue}
+              {folders.length == 0 ? "No Results" : "Results"} for {curValue}
             </div>
             <div className="flex m-auto space-x-5 pt-4 pb-7 space-y-5 px-5 flex-wrap rounded-lg mt-5">
               <div></div>
