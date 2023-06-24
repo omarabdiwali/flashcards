@@ -76,7 +76,7 @@ export default function Card({ cards, creator, date, title, email, id }) {
 
     return (
       <SnackbarProvider preventDuplicate>
-        <CardPage index={folderIndex} />
+        {!isNaN(folderIndex) ? <CardPage index={folderIndex} /> : <Spinner />}
       </SnackbarProvider>
     )
   }
@@ -129,7 +129,7 @@ export default function Card({ cards, creator, date, title, email, id }) {
 
   return (
   <>
-    {status == "unauthenticated" ? (
+    {status !== "loading" ? (
       <>
         <div className="flex text-xl font-bold m-5">
           <div className="flex-1">{title} / By: {creator}</div>
