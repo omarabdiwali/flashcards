@@ -1,38 +1,9 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## FlashCards
 
-## Getting Started
+This is a Next.js website that allows users to create and store flashcards in folders, and make them public. It was created using TailwindCSS as the styling components, MongoDB as the database, Node.js handling the backend, and Google OAuth for verification.
 
-First, run the development server:
+Users are able to create folders, giving them a url that they can make public or not. Within the folders, they can create cards, and view them in flashcard format or as a list. Visitors are able to search the public folders for things that they are looking for, and it would return whatever fits the search query.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+The flashcards are able to be updated and deleted by the creator, and clicking them would reveal the answer or revert back to the question. The list portion of the page lists out the cards with the questions and answers, and users are able to pick how to view them by selecting the length of cards on each page.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Website: https://omar-flashcards.vercel.app
