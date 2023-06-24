@@ -7,3 +7,9 @@ Users are able to create folders, giving them a url that they can make public or
 The flashcards are able to be updated and deleted by the creator, and clicking them would reveal the answer or revert back to the question. The list portion of the page lists out the cards with the questions and answers, and users are able to pick how to view them by selecting the length of cards on each page.
 
 ## Website: https://omar-flashcards.vercel.app
+
+![Home Page](https://i.imgur.com/CjPlOAc.png)
+
+![Flash Cards](https://i.imgur.com/An82J7q.png)
+
+![List of Cards](https://i.imgur.com/UUaqVhZ.png)
