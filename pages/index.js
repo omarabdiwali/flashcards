@@ -11,6 +11,7 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [title, setTitle] = useState("");
   const [show, setShow] = useState(false);
+  const [pic, setPic] = useState(false);
   const [desc, setDesc] = useState("");
 
   const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -34,6 +35,8 @@ export default function Home() {
       await animateText(value, setDesc);
 
       setShow(true);
+      await sleep(100);
+      setPic(true);
     }
 
     spell().catch(err => console.error(err));
@@ -80,14 +83,12 @@ export default function Home() {
             </center>
           </div>
 
-          <div className="flex-1 mx-auto mt-6">
+          <div className={`flex-1 mx-auto mt-6 transition-all duration-400 delay-300 ease-in-out ${pic ? "opacity-100" : "opacity-0"}`}>
             <center>
               <img src="https://i.imgur.com/CjPlOAc.png" alt="Home Page" className="border mb-5 px-3 py-3 border-2 border-blue-300 rounded-xl w-2/3" />
               <img src="https://i.imgur.com/An82J7q.png" alt="Cards" className="border px-3 mb-5 py-3 border-2 border-blue-300 rounded-xl w-2/3" />
-              {/* <img src="https://i.imgur.com/An82J7q.png" alt="Cards" className="border mb-3 px-3 py-3 border-2 border-slate-700 rounded-xl w-2/3" /> */}
             </center>
           </div>
-
 
         </div>
       </>
