@@ -81,7 +81,7 @@ export default function Card({ cards, creator, date, title, email, id }) {
     )
   }
 
-  if (cards.length == 0) {
+  if (cards.length == 0 && status !== "loading") {
     return (
       <div className="flex h-full">
         <div className="flex flex-col space-y-5 m-auto">
