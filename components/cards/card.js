@@ -65,7 +65,7 @@ export default function Card({ cards, id }) {
 
     fetch("/api/card/delete", {
       method: "POST",
-      body: JSON.stringify({ id: id, index: deleteIndex, question: cards[deleteIndex].question, answer: cards[deleteIndex].question })
+      body: JSON.stringify({ id: id, index: deleteIndex, question: cards[deleteIndex].question, answer: cards[deleteIndex].answer })
     }).then(res => res.json())
       .then(data => {
         if (data.answer === "Card has been deleted!") {
