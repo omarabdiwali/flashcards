@@ -12,32 +12,36 @@ export default async function handler(req, res) {
     return;
   }
 
-  const { id, cardIndex, question, answer } = JSON.parse(req.body);
+  const { id, cardIndex, question, answer, prQ, prA } = JSON.parse(req.body);
   let query = { "cards.id": id };
   let newCard = { question: question, answer: answer };
+  let oldCard = { question: prQ, answer: prA };
 
   await dbConnect();
   let user = await Users.findOne(query);
 
   if (user) {
     let index = user.cards.findIndex(folder => folder.id === id);
-    let newCards = user.cards;
-    let folderCards = user.cards[index].cards;
     
-    folderCards.splice(cardIndex, 1);
-    folderCards.splice(cardIndex, 0, newCard);
-    
-    newCards[index].cards = [...folderCards];
-    user.cards = [...newCards];
+    if (JSON.stringify(user.cards[index].cards[cardIndex]) === JSON.stringify(oldCard)) {
+      user.cards[index].cards[cardIndex] = newCard;
 
-    let pQuery = { id: id };
-    let pFolder = await Public.findOne(pQuery);
-    pFolder.cards = [...folderCards];
-    
-    pFolder.save();
-    user.save();
+      let folderCards = user.cards[index].cards;
 
-    res.status(200).json({ answer: "Card has been updated!" });
+      let pQuery = { id: id };
+      let pFolder = await Public.findOne(pQuery);
+      pFolder.cards = [...folderCards];
+      
+      pFolder.save();
+      user.save();
+
+      res.status(200).json({ answer: "Card has been updated!" });
+    }
+
+    else {
+      res.status(200).json({answer: "Changes have been made, page reloading!"})
+    }
+    
   }
 
   else {

@@ -12,8 +12,9 @@ export default async function handler(req, res) {
     return;
   }
 
-  const { id, index } = JSON.parse(req.body);
+  const { id, index, question, answer } = JSON.parse(req.body);
   let query = { "cards.id": id };
+  let card = { question: question, answer: answer };
 
   await dbConnect();
   let user = await Users.findOne(query);
@@ -23,19 +24,26 @@ export default async function handler(req, res) {
     let folder = user.cards.findIndex(folder => folder.id === id);
 
     let cards = user.cards[folder].cards;
-    
-    cards.splice(index, 1);
-    newCards[folder].cards = [...cards];
-    user.cards = [...newCards];
 
-    let pQuery = { id: id };
-    let pFolder = await Public.findOne(pQuery);
-    pFolder.cards = [...cards];
-    
-    pFolder.save();
-    user.save();
+    if (JSON.stringify(cards[index]) === JSON.stringify(card)) {
+      cards.splice(index, 1);
+      newCards[folder].cards = [...cards];
+      user.cards = [...newCards];
 
-    res.status(200).json({ answer: "Card has been deleted!" });
+      let pQuery = { id: id };
+      let pFolder = await Public.findOne(pQuery);
+      pFolder.cards = [...cards];
+      
+      pFolder.save();
+      user.save();
+
+      res.status(200).json({ answer: "Card has been deleted!" });
+    }
+
+    else {
+      res.status(200).json({ answer: "Changes have been made, page reloading!" });
+    }
+    
   } else {
     res.redirect("/");
   }

@@ -65,9 +65,16 @@ export default function Card({ cards, id }) {
 
     fetch("/api/card/delete", {
       method: "POST",
-      body: JSON.stringify({ id: id, index: deleteIndex })
+      body: JSON.stringify({ id: id, index: deleteIndex, question: cards[deleteIndex].question, answer: cards[deleteIndex].question })
     }).then(res => res.json())
-      .then(data => enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "success" }))
+      .then(data => {
+        if (data.answer === "Card has been deleted!") {
+          enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "success" })
+        } else {
+          enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "warning" });
+          setTimeout(() => window.location.reload(), 1500);
+        }
+      })
       .catch(err => console.error(err));
         
     cards.splice(deleteIndex, 1);
@@ -113,16 +120,21 @@ export default function Card({ cards, id }) {
       updateIndex = index;
     }
 
-    cards[updateIndex].question = q;
-    cards[updateIndex].answer = a;
-
     fetch("/api/card/update", {
       method: "POST",
-      body: JSON.stringify({ id: id, cardIndex: updateIndex, question: q, answer: a })
+      body: JSON.stringify({ id: id, cardIndex: updateIndex, question: q, answer: a, prQ: cards[updateIndex].question, prA: cards[updateIndex].answer })
     }).then(res => res.json()).then(data => {
-      enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "success" })
+      if (data.answer === "Card has been updated!") {
+        enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "success" });
+      } else {
+        enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "warning" });
+        setTimeout(() => window.location.reload(), 1500);
+      }
     }).catch(err => console.error(err));
 
+    cards[updateIndex].question = q;
+    cards[updateIndex].answer = a;
+    
     setClicked(false);
   }
 
