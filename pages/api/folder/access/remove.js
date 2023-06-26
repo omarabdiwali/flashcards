@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  const { id, index } = JSON.parse(req.body);
+  const { id, email } = JSON.parse(req.body);
   const query = { id: id };
 
   await dbConnect();
@@ -15,8 +15,12 @@ export default async function handler(req, res) {
 
   if (pub) {
     let emails = pub.emails;
-    emails.splice(index, 1);
-    pub.emails = [...emails];
+    let index = emails.indexOf(email);
+
+    if (index) {
+      emails.splice(index, 1);
+      pub.emails = [...emails];
+    }
 
     pub.save();
     res.status(200).json({ answer: "User has been removed." });

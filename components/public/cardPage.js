@@ -68,6 +68,10 @@ export default function Card({ cards, creator, date, title, emails, id }) {
   if (status === "authenticated" && emails.includes(session.user.email)) {
     return (
       <SnackbarProvider preventDuplicate>
+        <div className="flex text-xl font-bold m-5">
+          <div className="flex-1">{title} / By: {creator}</div>
+          <div>Created on: {date}</div>
+        </div>
         <CardPage id={id} />
       </SnackbarProvider>
     )

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import Card from "./card";
+import Spinner from "../spinner";
 
 export default function CardPage({ id }) {
   const [cards, setCards] = useState([]);
@@ -23,7 +24,7 @@ export default function CardPage({ id }) {
             <Card cards={cards} id={id} />
           </div>
         </div>
-      ) : ""}
+      ) : <Spinner />}
     </>
   )
 }

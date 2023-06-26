@@ -1,6 +1,6 @@
 import { enqueueSnackbar } from "notistack";
 import { useCallback, useState } from "react"
-import { BsXLg } from "react-icons/bs";
+import { BsPlus, BsPlusCircle, BsXLg } from "react-icons/bs";
 import Users from "./users";
 
 export default function UsersModal({ emails, className, add, remove }) {
@@ -13,9 +13,11 @@ export default function UsersModal({ emails, className, add, remove }) {
     }
   }, [open]);
 
-  const removeEmail = (index) => {
-    remove(index + 1);
-    emails.splice(index + 1, 1);
+  const removeEmail = (email) => {
+    let index = emails.indexOf(email);
+    emails.splice(index, 1);
+
+    remove(email);
   }
 
   const updateData = (e) => {
@@ -61,12 +63,17 @@ export default function UsersModal({ emails, className, add, remove }) {
                 <button onClick={revertData} className="text-3xl text-slate-300"><BsXLg /></button>
               </div>
               <div className="flex flex-col mx-5">
-                <form onSubmit={updateData}>
-                  <input ref={autoFocusFn} type="text" className="w-full mb-5 rounded-lg text-black p-2" value={user} onChange={e => setUser(e.target.value)} />
-                </form>
+                <div className="flex space-x-4">
+                  <form className="flex-1" onSubmit={updateData}>
+                    <input ref={autoFocusFn} type="text" className="w-full mb-5 rounded-lg text-black p-2" value={user} onChange={e => setUser(e.target.value)} />
+                  </form>
+                  <div className="mt-1">
+                    <button onClick={updateData} className="text-3xl rounded-xl text-slate-700 hover:text-white bg-slate-400 hover:bg-slate-800"><BsPlus /></button>
+                  </div>
+                </div>
                 <div className="mb-5">
                   {emails.length > 1 ? emails.slice(1).map((email, index) => {
-                    return <Users key={index} index={index} email={email} remove={removeEmail} />
+                    return <Users key={index} email={email} remove={removeEmail} />
                   }): "No other users."}
                 </div>
               </div>

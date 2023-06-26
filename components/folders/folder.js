@@ -21,13 +21,14 @@ export default function Folder({ folder, deleteFolder }) {
     }
   }, [status])
 
-  const removeEmail = (index) => {
+  const removeEmail = (email) => {
     fetch("/api/folder/access/remove", {
       method: "POST",
-      body: JSON.stringify({ id: folder.id, index: index })
+      body: JSON.stringify({ id: folder.id, email: email })
     }).then(res => res.json()).then(data => enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "success" }))
       .catch(err => console.error(err));
     
+    let index = emails.indexOf(email);
     setEmails(emails.splice(index, 1));
   }
 
@@ -111,7 +112,15 @@ export default function Folder({ folder, deleteFolder }) {
             <UsersModal id={folder.id} emails={folder.emails} add={addEmail} remove={removeEmail} className="rounded-lg flex-1 hover:bg-slate-900" />
           </div>
         </>
-      ) : <div className="mx-5 my-5 text-lg tracking-wider justify-end opacity-60">SHARED</div>}
+      ) : (
+          <div className="flex mx-2 h-12 my-3">
+            <div className="flex-1 m-auto ml-5 text-lg tracking-wider justify-end opacity-60">SHARED</div>
+            <DeleteModal type={"Folder"} button={"Leave"} func={() => {
+              removeEmail(session.user.email);
+              window.location.reload();
+            }} className="rounded-lg flex-1 hover:bg-slate-900" />
+          </div>
+      )}
     </div>
   )
 }
