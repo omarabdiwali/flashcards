@@ -1,9 +1,9 @@
 import { enqueueSnackbar } from "notistack";
-import { useEffect, useCallback, useState } from "react"
+import { useCallback, useState } from "react"
 import { BsXLg } from "react-icons/bs";
 import Users from "./users";
 
-export default function UsersModal({ emails, id, className, add, remove }) {
+export default function UsersModal({ emails, className, add, remove }) {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState("")
   
