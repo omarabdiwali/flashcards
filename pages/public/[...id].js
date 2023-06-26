@@ -22,7 +22,6 @@ export default function Page() {
         body: JSON.stringify({ code: router.query.id })
       }).then(res => res.json()).then(data => {
         setAnswer(data.answer);
-
         if (data.answer === "Folder is public.") {
           setFolder(data.folder);
           setApproved(true);
@@ -76,7 +75,6 @@ export default function Page() {
     )
   }
 
-
   return (
     <>
       <Head>
@@ -87,7 +85,7 @@ export default function Page() {
 
       <div className="flex h-screen">
         <div className="w-full">
-          <CardPage title={folder.folder} id={folder.id} email={folder.email} cards={folder.cards} creator={folder.user} date={folder.date.toString().substring(0, 10)} />
+          <CardPage title={folder.folder} id={folder.id} emails={folder.emails} cards={folder.cards} creator={folder.user} date={folder.date.toString().substring(0, 10)} />
         </div>
       </div>
     </>

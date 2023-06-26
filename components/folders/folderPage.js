@@ -4,18 +4,23 @@ import { enqueueSnackbar } from "notistack";
 import Folder from "./folder";
 import Spinner from "../spinner";
 import FolderModal from "./folderModal";
+import { useSession } from "next-auth/react";
 
 export default function FolderPage() {
   const [folders, setFolders] = useState([]);
   const [completed, setCompleted] = useState(false);
+  const { data: session, status } = useSession();
   
   useEffect(() => {
+    if (status === "loading") return;
     fetch("/api/folders").then(res => res.json())
     .then(data => {
-      setFolders(data.folders);
+      let folders = data.folders;
+      folders.sort((folder, folder1) => (folder1.emails[0] === session.user.email && folder.emails[0] !== session.user.email) ? 1 : (folder.emails[0] === session.user.email && folder1.emails[0] !== session.user.email) ? -1 : 0);
+      setFolders(folders);
       setCompleted(true);
     }).catch(err => console.error(err));
-  }, [])
+  }, [status])
 
   const createFolder = (folder) => {
     fetch("/api/folder/create", {
@@ -27,10 +32,10 @@ export default function FolderPage() {
     }).catch(err => console.error(err));
   }
 
-  const deleteFolder = (name, index) => {
+  const deleteFolder = (name, id) => {
     fetch("/api/folder/delete", {
       method: "POST",
-      body: JSON.stringify({ index: index, folder: name })
+      body: JSON.stringify({ id: id, folder: name })
     }).then(res => res.json()).then(data => {
       enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "success" });
       window.location.reload();
@@ -60,7 +65,7 @@ export default function FolderPage() {
         <div></div>
         {folders.map((folder, index) => {
           return (
-            <Folder key={index} folder={folder} index={index} deleteFolder={deleteFolder} />
+            <Folder key={index} folder={folder} deleteFolder={deleteFolder} />
           )
         })}
       </div>

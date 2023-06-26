@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "./auth/[...nextauth]"
 import dbConnect from "@/utils/dbConnect";
 import Users from "@/models/Users";
+import Public from "@/models/Public";
 
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
@@ -18,11 +19,15 @@ export default async function handler(req, res) {
   await dbConnect();
   let user = await Users.findOne(query);
 
-  if (user) {
-    res.status(200).json({ folders: user.cards });
+  if (!user) {
+    await Users.create(data).catch(err => console.error(err));
+  }
+
+  let pub = await Public.find({ emails: profile.email });
+
+  if (pub) {
+    res.status(200).json({ folders: pub });
   } else {
-    Users.create(data).then(user => {
-      res.status(200).json({ folders: user.cards });
-    }).catch(err => console.error(err));
+    res.status(200).json({ folders: [] });
   }
 }

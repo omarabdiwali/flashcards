@@ -6,7 +6,7 @@ import CardPage from "../cards/cardPage";
 import { SnackbarProvider } from "notistack";
 import Spinner from "../spinner";
 
-export default function Card({ cards, creator, date, title, email, id }) {
+export default function Card({ cards, creator, date, title, emails, id }) {
   const { data: session, status } = useSession();
 
   const [clicked, setClicked] = useState(false);
@@ -21,7 +21,6 @@ export default function Card({ cards, creator, date, title, email, id }) {
   const [pageEnd, setPageEnd] = useState(5);
   const [length, setLength] = useState(5);
   const [pages, setPages] = useState(1);
-  const [folderIndex, setFolderIndex] = useState();
 
   useEffect(() => {
     if (cards.length > 0) {
@@ -66,17 +65,10 @@ export default function Card({ cards, creator, date, title, email, id }) {
     setPageNumber(pageNumber + 1);
   }
 
-  if (status === "authenticated" && session.user.email === email) {
-    fetch("/api/public/location", {
-      method: "POST",
-      body: JSON.stringify({ id: id })
-    }).then(res => res.json()).then(data => {
-      setFolderIndex(data.index);
-    }).catch(err => console.error(err));
-
+  if (status === "authenticated" && emails.includes(session.user.email)) {
     return (
       <SnackbarProvider preventDuplicate>
-        {!isNaN(folderIndex) ? <CardPage index={folderIndex} /> : <Spinner />}
+        <CardPage id={id} />
       </SnackbarProvider>
     )
   }

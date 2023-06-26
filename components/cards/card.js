@@ -5,7 +5,7 @@ import CardModal from "./cardModal";
 import DeleteModal from "../deleteModal";
 import CardList from "./cardList";
 
-export default function Card({ cards, folderIndex }) {
+export default function Card({ cards, id }) {
   const [clicked, setClicked] = useState(false);
   const [index, setIndex] = useState(0);
   const [ques, setQues] = useState();
@@ -65,7 +65,7 @@ export default function Card({ cards, folderIndex }) {
 
     fetch("/api/card/delete", {
       method: "POST",
-      body: JSON.stringify({ folder: folderIndex, index: deleteIndex })
+      body: JSON.stringify({ id: id, index: deleteIndex })
     }).then(res => res.json())
       .then(data => enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "success" }))
       .catch(err => console.error(err));
@@ -85,7 +85,7 @@ export default function Card({ cards, folderIndex }) {
   }
 
   const create = (q, a) => {
-    let card = { index: folderIndex, question: q, answer: a };
+    let card = { id: id, question: q, answer: a };
 
     fetch("/api/card/create", {
       method: "POST",
@@ -116,10 +116,9 @@ export default function Card({ cards, folderIndex }) {
     cards[updateIndex].question = q;
     cards[updateIndex].answer = a;
 
-
     fetch("/api/card/update", {
       method: "POST",
-      body: JSON.stringify({ index: folderIndex, cardIndex: updateIndex, question: q, answer: a })
+      body: JSON.stringify({ id: id, cardIndex: updateIndex, question: q, answer: a })
     }).then(res => res.json()).then(data => {
       enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "success" })
     }).catch(err => console.error(err));

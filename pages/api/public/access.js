@@ -17,7 +17,6 @@ export default async function handler(req, res) {
     email = profile.email;
   }
 
-
   const { code } = JSON.parse(req.body);
   let query = { id: code };
 
@@ -25,7 +24,7 @@ export default async function handler(req, res) {
   let folder = await Public.findOne(query);
 
   if (folder) {
-    if (folder.public || folder.email === email) {
+    if (folder.public || folder.emails.includes(email)) {
       res.status(200).send({ folder: folder, answer: "Folder is public." });
     } else {
       res.status(200).send({ answer: "Folder is private." });

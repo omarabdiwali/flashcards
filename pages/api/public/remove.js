@@ -12,17 +12,15 @@ export default async function handler(req, res) {
     return;
   }
 
-  const profile = session.user;
-  const { index } = JSON.parse(req.body);
-
-  let query = { email: profile.email };
+  const { id } = JSON.parse(req.body);
+  let query = { "cards.id": id };
+ 
   await dbConnect();
-
   let user = await Users.findOne(query);
 
   if (user) {
+    let index = user.cards.findIndex(folder => folder.id === id);
     user.cards[index].public = false;
-    let id = user.cards[index].id;
     let name = user.cards[index].folder;
     user.save();
 

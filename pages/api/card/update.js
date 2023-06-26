@@ -12,18 +12,17 @@ export default async function handler(req, res) {
     return;
   }
 
-  const profile = session.user;
-  const { index, cardIndex, question, answer } = JSON.parse(req.body);
-  let query = { email: profile.email };
+  const { id, cardIndex, question, answer } = JSON.parse(req.body);
+  let query = { "cards.id": id };
   let newCard = { question: question, answer: answer };
 
   await dbConnect();
   let user = await Users.findOne(query);
 
   if (user) {
+    let index = user.cards.findIndex(folder => folder.id === id);
     let newCards = user.cards;
     let folderCards = user.cards[index].cards;
-    let id = user.cards[index].id;
     
     folderCards.splice(cardIndex, 1);
     folderCards.splice(cardIndex, 0, newCard);
