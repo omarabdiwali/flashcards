@@ -12,6 +12,7 @@ export default function Folder({ folder, deleteFolder }) {
   const [disabled, setDisabled] = useState(false);
   const [creator, setCreator] = useState(false);
   const [emails, setEmails] = useState(folder.emails);
+  const [newEmails, setNewEmails] = useState(folder.emails);
   const { enqueueSnackbar } = useSnackbar();
   const { data: session, status } = useSession();
 
@@ -21,6 +22,10 @@ export default function Folder({ folder, deleteFolder }) {
     }
   }, [status])
 
+  useEffect(() => {
+    setEmails(newEmails);
+  }, [newEmails])
+
   const removeEmail = (email) => {
     fetch("/api/folder/access/remove", {
       method: "POST",
@@ -29,7 +34,7 @@ export default function Folder({ folder, deleteFolder }) {
       .catch(err => console.error(err));
     
     let index = emails.indexOf(email);
-    setEmails(emails.splice(index, 1));
+    setNewEmails(emails.splice(index, 1));
   }
 
   const addEmail = (email) => {
@@ -39,7 +44,7 @@ export default function Folder({ folder, deleteFolder }) {
     }).then(res => res.json()).then(data => enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "success" }))
       .catch(err => console.error(err));
 
-    setEmails(emails => [...emails, email]);
+    setNewEmails(newEmails => [...newEmails, email]);
   }
 
   const updateFolder = (newName) => {
@@ -109,7 +114,7 @@ export default function Folder({ folder, deleteFolder }) {
             <DeleteModal type={"Folder"} button={"Delete"} func={() => deleteFolder(name, folder.id)} className="rounded-lg flex-1 hover:bg-slate-900" />
           </div>
           <div className="flex justify-center mb-3 mx-2 h-12 max-h-12">
-            <UsersModal id={folder.id} emails={folder.emails} add={addEmail} remove={removeEmail} className="rounded-lg flex-1 hover:bg-slate-900" />
+            <UsersModal id={folder.id} emails={emails} add={addEmail} remove={removeEmail} className="rounded-lg flex-1 hover:bg-slate-900" />
           </div>
         </>
       ) : (

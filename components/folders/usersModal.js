@@ -1,6 +1,6 @@
 import { enqueueSnackbar } from "notistack";
 import { useCallback, useState } from "react"
-import { BsPlus, BsPlusCircle, BsXLg } from "react-icons/bs";
+import { BsPlus, BsXLg } from "react-icons/bs";
 import Users from "./users";
 
 export default function UsersModal({ emails, className, add, remove }) {
@@ -39,7 +39,6 @@ export default function UsersModal({ emails, className, add, remove }) {
     }
 
     add(userValue);
-    emails.push(userValue);
     setUser("");
   }
 
