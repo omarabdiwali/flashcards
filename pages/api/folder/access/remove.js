@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     let emails = pub.emails;
     let index = emails.indexOf(email);
 
-    if (index) {
+    if (index !== -1) {
       emails.splice(index, 1);
       pub.emails = [...emails];
     }
