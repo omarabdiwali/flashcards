@@ -33,8 +33,10 @@ export default function Folder({ folder, deleteFolder }) {
     }).then(res => res.json()).then(data => enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "success" }))
       .catch(err => console.error(err));
     
-    let index = emails.indexOf(email);
-    setNewEmails(emails.splice(index, 1));
+    let emls = [...emails];
+    let index = emls.indexOf(email);
+    emls.splice(index, 1);
+    setNewEmails(emls);
   }
 
   const addEmail = (email) => {

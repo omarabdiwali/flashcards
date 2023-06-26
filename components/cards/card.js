@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { enqueueSnackbar } from "notistack";
-import { BsPlusSquare, BsArrowRightShort, BsArrowLeftShort, BsPlus, BsPlusCircle } from "react-icons/bs";
+import { BsPlusSquare, BsArrowRightShort, BsArrowLeftShort, BsPlusCircle } from "react-icons/bs";
 import CardModal from "./cardModal";
 import DeleteModal from "../deleteModal";
 import CardList from "./cardList";

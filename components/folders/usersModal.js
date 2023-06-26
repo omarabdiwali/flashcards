@@ -14,9 +14,6 @@ export default function UsersModal({ emails, className, add, remove }) {
   }, [open]);
 
   const removeEmail = (email) => {
-    let index = emails.indexOf(email);
-    emails.splice(index, 1);
-
     remove(email);
   }
 
