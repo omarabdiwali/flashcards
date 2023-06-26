@@ -31,7 +31,7 @@ export default function Home() {
       let value = "FlashCards - A Way To Store Study Cards";
       await animateText(value, setTitle);
 
-      value = "Have the ability to create folders and flashcards, be able to view them how you want, and allow them to become public."
+      value = "Have the ability to create folders and flashcards, give access to others to collaborate, be able to view them how you want, and allow them to become public."
       await animateText(value, setDesc);
 
       setShow(true);
