@@ -39,8 +39,10 @@ export default function Home() {
       setPic(true);
     }
 
-    spell().catch(err => console.error(err));
-  }, [])
+    if (status === "unauthenticated") {
+      spell().catch(err => console.error(err));
+    }
+  }, [status])
 
   const handleChange = (e) => {
     setSearch(e.target.value);
