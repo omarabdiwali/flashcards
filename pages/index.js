@@ -87,8 +87,8 @@ export default function Home() {
 
           <div className={`flex-1 mx-auto mt-6 transition-all duration-400 delay-300 ease-in-out ${pic ? "opacity-100" : "opacity-0"}`}>
             <center>
-              <img src="https://i.imgur.com/CjPlOAc.png" alt="Home Page" className="border mb-5 px-3 py-3 border-2 border-blue-300 rounded-xl w-2/3" />
-              <img src="https://i.imgur.com/An82J7q.png" alt="Cards" className="border px-3 mb-5 py-3 border-2 border-blue-300 rounded-xl w-2/3" />
+              <img src="https://i.imgur.com/g2XnO1L.png" alt="Home Page" className="border mb-5 px-3 py-3 border-2 border-blue-300 rounded-xl w-2/3" />
+              <img src="https://i.imgur.com/y57Zucx.png" alt="Cards" className="border px-3 mb-5 py-3 border-2 border-blue-300 rounded-xl w-2/3" />
             </center>
           </div>
 

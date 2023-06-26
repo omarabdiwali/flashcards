@@ -10,6 +10,6 @@ The flashcards are able to be updated and deleted by those given access by the c
 
 ![Home Page](https://i.imgur.com/g2XnO1L.png)
 
-![Flash Cards](https://i.imgur.com/An82J7q.png)
+![Flash Cards](https://i.imgur.com/y57Zucx.png)
 
-![List of Cards](https://i.imgur.com/UUaqVhZ.png)
+![List of Cards](https://i.imgur.com/K6zKAhc.png)
