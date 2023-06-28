@@ -139,7 +139,7 @@ export default function Page() {
               <div className={`flex-1`}></div>
             </div>
 
-            <div style={{ top: fixed ? 0 : top}} className={`flex flex-col justify-end bg-slate-800 mb-20 border-blue-400 rounded-lg max-h-full h-full min-h-full ${fixed ? "fixed" : `absolute`} right-0 w-1/2 mt-12 mr-5 ${!show ? "hidden" : ""}`}>
+            <div style={{ top: fixed ? 0 : top}} className={`flex flex-col justify-end bg-slate-800 mb-20 border-blue-400 rounded-lg max-h-full h-full min-h-full ${fixed ? "fixed mt-4" : `absolute mt-12`} right-0 w-1/2 mr-5 ${!show ? "hidden" : ""}`}>
               <div className="text-xl max-h-12 font-bold my-3">{title}</div>
               <div className="overflow-x-scroll h-full">
                 {cards.length > 0 ? cards.map((card, index) => {
