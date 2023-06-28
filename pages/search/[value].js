@@ -17,6 +17,7 @@ export default function Page() {
   const [curValue, setCurValue] = useState("");
   const [show, setShow] = useState(false);
   const [cards, setCards] = useState([]);
+  const [prev, setPrev] = useState(true);
 
   const [fixed, setFixed] = useState(false);
   const [title, setTitle] = useState("");
@@ -25,7 +26,6 @@ export default function Page() {
 
   const drawControlRef = useCallback(node => {
     if (node !== null && run) {
-      console.log(node.offsetTop);
       let tp = `${node.offsetTop}px`;
       setTop(tp);
       setRun(false);
@@ -48,6 +48,33 @@ export default function Page() {
       };
     }
   )
+
+  const getLayout = useCallback(
+    e => {
+      if (!e) return;
+
+      const window = e.currentTarget;
+
+      if (window.innerWidth < 640) {
+        setPrev(false);
+      } else {
+        setPrev(true);
+      }
+    }
+  )
+
+  useEffect(() => {
+    if (window.innerWidth < 640) {
+      setPrev(false);
+    }
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener("resize", getLayout);
+    return () => {
+      window.addEventListener("resize", getLayout);
+    }
+  }, [getLayout]);
 
   useEffect(() => {
     window.addEventListener("scroll", getLocation);
@@ -125,8 +152,8 @@ export default function Page() {
               {folders.length == 0 ? "No Results" : "Results"} for {curValue}
             </div>
             <div className={`flex font-bold text-2xl text-slate-400 ${folders.length == 0 ? "hidden" : ""}`}>
-              <div className="flex-1">Folders</div>
-              <div className="flex-1">Preview</div>
+              <div className={`flex-1 ${!prev ? "mt-5" : ""}`}>Folders</div>
+              <div className={`flex-1 ${!prev ? "hidden" : ""}`}>Preview</div>
             </div>
             <div ref={(el) => { drawControlRef(el); previewRef.current = el; }} className={`flex justify-end mt-5 space-x-5 ${!show ? "hidden" : ""}`}>
               <div className="flex flex-1 m-auto space-x-5 pt-4 pb-7 space-y-5 px-5 flex-wrap rounded-lg mt-5">
@@ -136,10 +163,10 @@ export default function Page() {
                 })}
               </div>
 
-              <div className={`flex-1`}></div>
+              <div className={`flex-1 ${!prev ? "hidden" : ""}`}></div>
             </div>
 
-            <div style={{ top: fixed ? 0 : top}} className={`flex flex-col justify-end bg-slate-800 mb-20 border-blue-400 rounded-lg max-h-full h-full min-h-full ${fixed ? "fixed mt-4" : `absolute mt-12`} right-0 w-1/2 mr-5 ${!show ? "hidden" : ""}`}>
+            <div style={{ top: fixed ? 0 : top}} className={`flex flex-col justify-end bg-slate-800 mb-20 border-blue-400 rounded-lg max-h-full h-full min-h-full ${fixed ? "fixed mt-4" : `absolute mt-12`} right-0 w-1/2 mr-5 ${!show || !prev ? "hidden" : ""}`}>
               <div className="text-xl max-h-12 font-bold my-3">{title}</div>
               <div className="overflow-x-scroll h-full">
                 {cards.length > 0 ? cards.map((card, index) => {

@@ -74,7 +74,7 @@ export default function Home() {
 
         <div className={`min-h-full flex space-x-5`}>
           <div className="flex-1 pl-10 border-none m-auto">
-            <div className="mt-2 leading-loose text-blue-700 md:text-5xl sm:text-2xl">
+            <div className="mt-2 text-blue-700 md:text-5xl sm:text-2xl">
               {title}
             </div>
             <div className="mt-7 leading-tight text-slate-600 md:text-3xl sm:text-xl">{desc}</div>
