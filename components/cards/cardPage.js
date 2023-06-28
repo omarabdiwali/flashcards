@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import Card from "./card";
 import Spinner from "../spinner";
 import { useSession } from "next-auth/react";
+import { SnackbarProvider } from "notistack";
 
 export default function CardPage({ id }) {
   const [cards, setCards] = useState([]);
@@ -28,7 +29,7 @@ export default function CardPage({ id }) {
   }, [id, status])
 
   return (
-    <>
+    <SnackbarProvider preventDuplicate>
       {completed ? (
         <>
           <div className="flex text-xl font-bold m-5">
@@ -42,6 +43,6 @@ export default function CardPage({ id }) {
           </div>
         </>
       ) : <Spinner />}
-    </>
+    </SnackbarProvider>
   )
 }

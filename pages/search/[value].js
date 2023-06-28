@@ -20,19 +20,32 @@ export default function Page() {
 
   const [fixed, setFixed] = useState(false);
   const [title, setTitle] = useState("");
+  const [top, setTop] = useState("228px");
+  const [run, setRun] = useState(true);
+
+  const drawControlRef = useCallback(node => {
+    if (node !== null && run) {
+      console.log(node.offsetTop);
+      let tp = `${node.offsetTop}px`;
+      setTop(tp);
+      setRun(false);
+    }
+  },[]);
 
   const getLocation = useCallback(
     e => {
-      if (!e || !previewRef) return;
+      if (!e || !previewRef.current?.offsetTop) return;
 
       const window = e.currentTarget;
-      let projectsTop = previewRef.current.offsetTop;
+      let hgt = previewRef.current.offsetHeight;
 
-      if (window.scrollY > projectsTop) {
-        setFixed(true);
-      } else {
-        setFixed(false);
-      }
+      if (hgt > 600) {
+        if (window.scrollY - 15 > previewRef.current.offsetTop) {
+          setFixed(true);
+        } else {
+          setFixed(false);
+        }
+      };
     }
   )
 
@@ -75,6 +88,7 @@ export default function Page() {
 
   }, [router.isReady])
 
+
   const handleChange = (e) => {
     setSearch(e.target.value);
   }
@@ -114,7 +128,7 @@ export default function Page() {
               <div className="flex-1">Folders</div>
               <div className="flex-1">Preview</div>
             </div>
-            <div ref={previewRef} className="flex justify-end mt-5 space-x-5">
+            <div ref={(el) => { drawControlRef(el); previewRef.current = el; }} className="flex justify-end mt-5 space-x-5">
               <div className="flex flex-1 m-auto space-x-5 pt-4 pb-7 space-y-5 px-5 flex-wrap rounded-lg mt-5">
                 <div></div>
                 {folders.map((folder, index) => {
@@ -122,11 +136,13 @@ export default function Page() {
                 })}
               </div>
 
-              <div className={`flex-1 ${fixed ? "" : "hidden"}`}></div>
+              <div className={`flex-1`}></div>
+            </div>
 
-              <div className={`justify-end bg-slate-800 box-content border-blue-400 rounded-lg ${fixed ? "fixed top-0" : "pb-12"} w-1/2 min-h-page max-h-page grow-0 mt-12 overflow-scroll mb-10 mr-5 ${!show ? "opacity-0" : ""}`}>
-                <div className="text-xl font-bold my-3">{title}</div>
-              {cards.length > 0 ? cards.map((card, index) => {
+            <div style={{ top: fixed ? 0 : top}} className={`flex flex-col justify-end bg-slate-800 mb-20 border-blue-400 rounded-lg max-h-full h-full min-h-full ${fixed ? "fixed" : `absolute`} right-0 w-1/2 mt-12 mr-5 ${!show ? "opacity-0" : ""}`}>
+              <div className="text-xl max-h-12 font-bold my-3">{title}</div>
+              <div className="overflow-x-scroll h-full">
+                {cards.length > 0 ? cards.map((card, index) => {
                 return <CardList card={card} index={index} publicPage={true} key={index} />
               }) : "Folder is Empty."}
               </div>
