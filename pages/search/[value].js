@@ -159,7 +159,7 @@ export default function Page() {
               <div className="flex flex-1 m-auto space-x-5 pt-4 pb-7 space-y-5 px-5 flex-wrap rounded-lg mt-5">
                 <div></div>
                 {folders.map((folder, index) => {
-                  return <Folders preview={previewFolder} folder={folder} key={index} />;
+                  return <Folders show={prev} preview={previewFolder} folder={folder} key={index} />;
                 })}
               </div>
 
