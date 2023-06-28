@@ -128,7 +128,7 @@ export default function Page() {
               <div className="flex-1">Folders</div>
               <div className="flex-1">Preview</div>
             </div>
-            <div ref={(el) => { drawControlRef(el); previewRef.current = el; }} className="flex justify-end mt-5 space-x-5">
+            <div ref={(el) => { drawControlRef(el); previewRef.current = el; }} className={`flex justify-end mt-5 space-x-5 ${!show ? "hidden" : ""}`}>
               <div className="flex flex-1 m-auto space-x-5 pt-4 pb-7 space-y-5 px-5 flex-wrap rounded-lg mt-5">
                 <div></div>
                 {folders.map((folder, index) => {
@@ -139,7 +139,7 @@ export default function Page() {
               <div className={`flex-1`}></div>
             </div>
 
-            <div style={{ top: fixed ? 0 : top}} className={`flex flex-col justify-end bg-slate-800 mb-20 border-blue-400 rounded-lg max-h-full h-full min-h-full ${fixed ? "fixed" : `absolute`} right-0 w-1/2 mt-12 mr-5 ${!show ? "opacity-0" : ""}`}>
+            <div style={{ top: fixed ? 0 : top}} className={`flex flex-col justify-end bg-slate-800 mb-20 border-blue-400 rounded-lg max-h-full h-full min-h-full ${fixed ? "fixed" : `absolute`} right-0 w-1/2 mt-12 mr-5 ${!show ? "hidden" : ""}`}>
               <div className="text-xl max-h-12 font-bold my-3">{title}</div>
               <div className="overflow-x-scroll h-full">
                 {cards.length > 0 ? cards.map((card, index) => {
