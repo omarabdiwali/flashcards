@@ -58,7 +58,7 @@ export default function Home() {
     window.location.href = `/search/${searchValue}`;
   }
 
-  if (!session && status === 'unauthenticated') {
+  if (status === 'unauthenticated') {
     return (
       <>
         <Head>
