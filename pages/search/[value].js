@@ -39,7 +39,7 @@ export default function Page() {
       const window = e.currentTarget;
       let hgt = previewRef.current.offsetHeight;
 
-      if (hgt > 600) {
+      if (hgt / window.innerHeight > 1.3) {
         if (window.scrollY - 15 > previewRef.current.offsetTop) {
           setFixed(true);
         } else {
