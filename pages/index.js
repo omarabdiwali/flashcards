@@ -102,18 +102,13 @@ export default function Home() {
       <Head>
         <title>FlashCards</title>
       </Head>
-      {status === "authenticated" ? (
-        <>
-          <Toolbar />
-          <center>
-            <form onSubmit={handleSubmit}>
-              <input placeholder="Search for folders..." value={search} onChange={handleChange} type="text" className="w-9/12 h-8 border border-2 focus:outline-none px-4 py-5 border-slate-700 bg-black rounded-2xl" />
-            </form>
-          </center>
-          
-          <FolderPage />
-        </>
-      ) : <Spinner />}
+      <Toolbar />
+      <center>
+        <form onSubmit={handleSubmit}>
+          <input placeholder="Search for folders..." value={search} onChange={handleChange} type="text" className="w-9/12 h-8 border border-2 focus:outline-none px-4 py-5 border-slate-700 bg-black rounded-2xl" />
+        </form>
+      </center>
+      {status === "authenticated" ? <FolderPage /> : <Spinner />}
     </SnackbarProvider> 
   )
 }
