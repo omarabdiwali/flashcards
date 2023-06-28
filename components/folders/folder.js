@@ -87,16 +87,11 @@ export default function Folder({ folder, deleteFolder }) {
     }).catch(err => console.error(err));
   }
 
-  const openPublic = (e) => {
-    e.preventDefault();
-    window.location.href = `/public/${folder.id}`;
-  }
-
   return (
     <div className="border flex flex-col justify-between border-slate-700 border-2 rounded-2xl xs:w-cardsmall sm:w-cardsmall md:w-cardfull xs:min-w-cardsmall sm:min-w-cardsmall">
       <div className="flex mx-5 flex-row my-5 max-h-12 h-12 text-emerald-200">
         <div className="flex-1 max-h-12 whitespace-nowrap m-auto overflow-x-scroll font-semibold text-xl">{name}</div>
-        <button onClick={openPublic} className="my-auto rounded-lg py-2 px-2 text-2xl cursor-pointer hover:bg-slate-900"><MdLink /></button>
+        <a href={`/public/${folder.id}/${folder.folder}`} className="my-auto rounded-lg py-2 px-2 text-2xl cursor-pointer hover:bg-slate-900"><MdLink /></a>
         {creator ? <button disabled={disabled} onClick={!pub ? makePublic : makePrivate} className="my-auto disabled:cursor-auto rounded-lg py-2 px-2 text-2xl cursor-pointer hover:bg-slate-900">{pub ? <MdPublic /> : <MdPublicOff />}</button> : ""}
       </div>
       <center>

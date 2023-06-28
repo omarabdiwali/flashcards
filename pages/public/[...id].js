@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 
 import Head from "next/head";
 import Spinner from "@/components/spinner";
-import CardPage from "@/components/public/cardPage";
 import Toolbar from "@/components/toolbar";
+import CardPage from "@/components/cards/cardPage";
 
 export default function Page() {
   const router = useRouter();
@@ -85,7 +85,7 @@ export default function Page() {
 
       <div className="flex h-screen">
         <div className="w-full">
-          <CardPage title={folder.folder} id={folder.id} emails={folder.emails} cards={folder.cards} creator={folder.user} date={folder.date.toString().substring(0, 10)} />
+          <CardPage id={folder.id} />
         </div>
       </div>
     </>

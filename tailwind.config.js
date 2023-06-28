@@ -14,7 +14,8 @@ module.exports = {
       },
       height: {
         'quarter': '60vh',
-        'body': '20vh'
+        'body': '20vh',
+        'page': '-webkit-fill-available'
       },
       width: {
         'cardfull': '22vw',

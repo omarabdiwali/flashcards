@@ -17,7 +17,7 @@ export default function CardList({ card, index, update=null, deleteItem=null, pu
   }
 
   return (
-    <div className="flex mb-7 flex-col border border-2 border-slate-700 divide-y mx-10 rounded-xl p-5 space-y-5">
+    <div className="flex mb-7 bg-black flex-col border border-2 border-slate-700 divide-y mx-10 rounded-xl p-5 space-y-5">
       <div className="flex-1 flex flex-col">
         <div className="flex">
           <div className="flex-1 text-slate-700 font-extrabold mb-2">Question</div>

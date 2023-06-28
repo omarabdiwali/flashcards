@@ -5,7 +5,7 @@ import CardModal from "./cardModal";
 import DeleteModal from "../deleteModal";
 import CardList from "./cardList";
 
-export default function Card({ cards, id }) {
+export default function Card({ cards, access, id }) {
   const [clicked, setClicked] = useState(false);
   const [index, setIndex] = useState(0);
   const [ques, setQues] = useState();
@@ -155,7 +155,7 @@ export default function Card({ cards, id }) {
       <div className="flex h-full">
         <div className="flex flex-col space-y-5 m-auto">
           <div className="text-2xl">Folder Is Empty</div>
-          <CardModal className="cursor-pointer bg-white enabled:hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 rounded shadow" type={"Create"} cardQuestion={""} cardAnswer={""} func={create} button={"Add Card"} />
+          {access ? <CardModal className="cursor-pointer bg-white enabled:hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 rounded shadow" type={"Create"} cardQuestion={""} cardAnswer={""} func={create} button={"Add Card"} /> : ""}
         </div>
       </div>
     )
@@ -172,10 +172,12 @@ export default function Card({ cards, id }) {
             List
           </button>
         </div>
-        <div className="flex">
-          <div className="mx-7 flex-1">
-          <CardModal className="text-2xl" type={"Create"} button={<BsPlusCircle />} cardQuestion={""} cardAnswer={""} func={create} />
-          </div>
+        <div className={`flex ${!access ? "justify-end" : ""}`}>
+          {access ? (
+            <div className="mx-7 flex-1">
+              <CardModal className="text-2xl" type={"Create"} button={<BsPlusCircle />} cardQuestion={""} cardAnswer={""} func={create} />
+            </div>
+          ) : ""}
           <div className="flex mb-5 mr-4 justify-end space-x-3">
             <button className="disabled:opacity-60" onClick={prevPage} disabled={pageNumber === 1}><BsArrowLeftShort /></button>
             <div>{pageNumber} of {pages}</div>
@@ -192,7 +194,7 @@ export default function Card({ cards, id }) {
         </div>
         {cards.slice(pageStart, pageEnd).map((card, index) => {
           let key = pageStart + index;
-          return (<CardList update={update} deleteItem={deleteCard} card={card} index={key} key={key} />)
+          return (<CardList update={update} publicPage={!access} deleteItem={deleteCard} card={card} index={key} key={key} />)
         })}
       </>
     )
@@ -213,7 +215,7 @@ export default function Card({ cards, id }) {
           <div className="flex-1 mt-2">
             {index + 1} / {cardLength}
           </div>
-          <CardModal className="mr-3 mt-2 text-black text-2xl transition ease-in-out delay-150 hover:-translate-y-1 duration-300 hover:scale-110" type={"Create"} button={<BsPlusSquare />} cardQuestion={""} cardAnswer={""} func={create} />
+          {access ? <CardModal className="mr-3 mt-2 text-black text-2xl transition ease-in-out delay-150 hover:-translate-y-1 duration-300 hover:scale-110" type={"Create"} button={<BsPlusSquare />} cardQuestion={""} cardAnswer={""} func={create} /> : ""}
         </div>
         <div onClick={() => setClicked(!clicked)} className="cursor-pointer justify-center flex flex-row my-auto h-52 min-h-48 text-2xl font-bold text-black overflow-y-auto">
           <div className="w-full my-auto mx-5">
@@ -225,14 +227,16 @@ export default function Card({ cards, id }) {
           </div>
         </div>
         <div className="justify-center flex flex-col my-2 mx-2 space-y-2">
-          <div className="flex space-x-2">
-            <div className="flex-1">
-              <DeleteModal type="Card" button="Delete" func={deleteCard} className="w-full cursor-pointer bg-white enabled:hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 rounded shadow" />
+          {access ? (
+            <div className="flex space-x-2">
+              <div className="flex-1">
+                <DeleteModal type="Card" button="Delete" func={deleteCard} className="w-full cursor-pointer bg-white enabled:hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 rounded shadow" />
+              </div>
+              <div className="flex-1">
+                <CardModal className="w-full cursor-pointer bg-white enabled:hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 rounded shadow" type={"Update"} cardQuestion={cards[index].question} cardAnswer={cards[index].answer} func={update} />
+              </div>
             </div>
-            <div className="flex-1">
-              <CardModal className="w-full cursor-pointer bg-white enabled:hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 rounded shadow" type={"Update"} cardQuestion={cards[index].question} cardAnswer={cards[index].answer} func={update} />
-            </div>
-          </div>
+          ) : ""}
           <div className="flex space-x-2">
             <button onClick={() => changeCard("back")} disabled={index == 0} className='flex-1 disabled:opacity-60 disabled:cursor-auto cursor-pointer bg-white enabled:hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 rounded shadow'>Back</button>
             <button onClick={() => changeCard("next")} disabled={index + 1 == cardLength} className="flex-1 disabled:opacity-60 disabled:cursor-auto cursor-pointer bg-white enabled:hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 rounded shadow">Next</button>
