@@ -26,7 +26,7 @@ module.exports = {
         'body': '35vh'
       },
       screens: {
-        'xs': '376px',
+        'xs': '264px',
         'xxs': '0px'
       }
     },

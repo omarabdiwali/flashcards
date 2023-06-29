@@ -88,7 +88,7 @@ export default function Folder({ folder, deleteFolder }) {
   }
 
   return (
-    <div className="border flex flex-col justify-between border-slate-700 border-2 rounded-2xl xs:w-cardsmall sm:w-cardsmall md:w-cardfull xs:min-w-cardsmall sm:min-w-cardsmall">
+    <div className="border flex flex-col justify-between border-slate-700 border-2 rounded-2xl xs:w-cardall sm:w-cardsmall md:w-cardsmall lg:w-cardfull xs:min-w-cardall sm:min-w-cardsmall md:min-w-cardsmall">
       <div className="flex mx-5 flex-row my-5 max-h-12 h-12 text-emerald-200">
         <div className="flex-1 max-h-12 whitespace-nowrap m-auto overflow-x-scroll font-semibold text-xl">{name}</div>
         <a href={`/public/${folder.id}/${folder.folder}`} className="my-auto rounded-lg py-2 px-2 text-2xl cursor-pointer hover:bg-slate-900"><MdLink /></a>
