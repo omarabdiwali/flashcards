@@ -55,7 +55,7 @@ export default function Page() {
 
       const window = e.currentTarget;
 
-      if (window.innerWidth < 640) {
+      if (window.innerWidth < 772) {
         setPrev(false);
       } else {
         setPrev(true);
@@ -151,12 +151,11 @@ export default function Page() {
             <div className="text-3xl mt-6">
               {folders.length == 0 ? "No Results" : "Results"} for {curValue}
             </div>
-            <div className={`flex font-bold text-2xl text-slate-400 ${folders.length == 0 ? "hidden" : ""}`}>
-              <div className={`flex-1 ${!prev ? "mt-5" : ""}`}>Folders</div>
-              <div className={`flex-1 ${!prev ? "hidden" : ""}`}>Preview</div>
+            <div className={`flex font-bold mt-5 mx-6 text-2xl text-slate-400 ${folders.length == 0 ? "hidden" : ""}`}>
+              <div>Folders</div>
             </div>
             <div ref={(el) => { drawControlRef(el); previewRef.current = el; }} className={`flex justify-end mt-5 space-x-5 ${!show ? "hidden" : ""}`}>
-              <div className="flex flex-1 m-auto space-x-5 pt-4 pb-7 space-y-5 px-5 flex-wrap rounded-lg mt-5">
+              <div className="flex flex-1 space-x-5 mr-12 pt-4 pb-7 space-y-5 flex-wrap rounded-lg mt-4">
                 <div></div>
                 {folders.map((folder, index) => {
                   return <Folders show={prev} preview={previewFolder} folder={folder} key={index} />;
@@ -164,9 +163,10 @@ export default function Page() {
               </div>
 
               <div className={`flex-1 ${!prev ? "hidden" : ""}`}></div>
+              <div className={`flex-1 ${!prev ? "hidden" : ""}`}></div>
             </div>
 
-            <div style={{ top: fixed ? 0 : top}} className={`flex flex-col justify-end bg-slate-800 mb-20 border-blue-400 rounded-lg max-h-full h-full min-h-full ${fixed ? "fixed mt-4" : `absolute mt-12`} right-0 w-1/2 mr-5 ${!show || !prev ? "hidden" : ""}`}>
+            <div style={{ top: fixed ? 0 : top}} className={`flex flex-col justify-end bg-slate-800 mb-20 border-blue-400 rounded-lg max-h-full h-full min-h-full ${fixed ? "fixed mt-4" : `absolute mt-12`} right-0 w-1/2 mr-28 ${!show || !prev ? "hidden" : ""}`}>
               <div className="text-xl max-h-12 font-bold my-3">{title}</div>
               <div className="overflow-x-scroll h-full">
                 {cards.length > 0 ? cards.map((card, index) => {
