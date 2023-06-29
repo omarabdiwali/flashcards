@@ -178,7 +178,7 @@ export default function Card({ cards, access, id }) {
               <CardModal className="text-2xl" type={"Create"} button={<BsPlusCircle />} cardQuestion={""} cardAnswer={""} func={create} />
             </div>
           ) : ""}
-          <div className="flex mb-5 mr-4 justify-end space-x-3">
+          <div className="flex mb-5 mr-4 text-sm justify-end space-x-3">
             <button className="disabled:opacity-60" onClick={prevPage} disabled={pageNumber === 1}><BsArrowLeftShort /></button>
             <div>{pageNumber} of {pages}</div>
             <button className="disabled:opacity-60" onClick={nextPage} disabled={pageNumber === pages}><BsArrowRightShort /></button>
@@ -210,7 +210,7 @@ export default function Card({ cards, access, id }) {
           List
         </button>
       </div>
-      <div className={`mt-10 m-auto flex flex-col w-1/3 h-1/2 bg-white rounded-lg`}>
+      <div className={`mt-10 m-auto flex flex-col w-96 bg-white rounded-lg`}>
         <div className="flex flex-row text-black m-3">
           <div className="flex-1 mt-2">
             {index + 1} / {cardLength}

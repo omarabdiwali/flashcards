@@ -155,7 +155,7 @@ export default function Page() {
               <div>Folders</div>
             </div>
             <div ref={(el) => { drawControlRef(el); previewRef.current = el; }} className={`flex justify-end mt-5 space-x-5 ${!show ? "hidden" : ""}`}>
-              <div className="flex flex-1 space-x-5 mr-12 pt-4 pb-7 space-y-5 flex-wrap rounded-lg mt-4">
+              <div className="flex flex-1 space-x-5 mr-5 pt-4 pb-7 space-y-5 flex-wrap rounded-lg mt-4">
                 <div></div>
                 {folders.map((folder, index) => {
                   return <Folders show={prev} preview={previewFolder} folder={folder} key={index} />;
