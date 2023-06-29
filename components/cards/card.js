@@ -210,7 +210,7 @@ export default function Card({ cards, access, id }) {
           List
         </button>
       </div>
-      <div className={`mt-10 m-auto flex flex-col w-96 bg-white rounded-lg`}>
+      <div className={`mt-10 select-none m-auto flex flex-col w-96 bg-white rounded-lg`}>
         <div className="flex flex-row text-black m-3">
           <div className="flex-1 mt-2">
             {index + 1} / {cardLength}
@@ -218,7 +218,7 @@ export default function Card({ cards, access, id }) {
           {access ? <CardModal className="mr-3 mt-2 text-black text-2xl transition ease-in-out delay-150 hover:-translate-y-1 duration-300 hover:scale-110" type={"Create"} button={<BsPlusSquare />} cardQuestion={""} cardAnswer={""} func={create} /> : ""}
         </div>
         <div onClick={() => setClicked(!clicked)} className="cursor-pointer justify-center flex flex-row my-auto h-52 min-h-48 text-2xl font-bold text-black overflow-y-auto">
-          <div className="w-full select-none my-auto mx-5">
+          <div className="w-full my-auto mx-5">
             <center>
               <div>
                 {!clicked ? ques : ans} 
