@@ -17,7 +17,7 @@ export default function Page() {
   const [curValue, setCurValue] = useState("");
   const [show, setShow] = useState(false);
   const [cards, setCards] = useState([]);
-  const [prev, setPrev] = useState(true);
+  const [prev, setPrev] = useState(false);
 
   const [fixed, setFixed] = useState(false);
   const [title, setTitle] = useState("");
@@ -64,8 +64,8 @@ export default function Page() {
   )
 
   useEffect(() => {
-    if (window.innerWidth < 640) {
-      setPrev(false);
+    if (window.innerWidth > 772) {
+      setPrev(true);
     }
   }, [])
 
