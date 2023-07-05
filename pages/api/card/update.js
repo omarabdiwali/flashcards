@@ -7,10 +7,12 @@ import Public from "@/models/Public";
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
 
-  if (!session) {
+  if (!session || !req.body) {
     res.redirect("/");
     return;
   }
+
+  const profile = session.user;
 
   const { id, cardIndex, question, answer, prQ, prA } = JSON.parse(req.body);
   let query = { "cards.id": id };
@@ -21,15 +23,19 @@ export default async function handler(req, res) {
   let user = await Users.findOne(query);
 
   if (user) {
+    let pQuery = { id: id };
+    let pFolder = await Public.findOne(pQuery);
+
+    if (!pFolder.emails.includes(profile.email)) {
+      res.redirect("/");
+      return;
+    }
+
     let index = user.cards.findIndex(folder => folder.id === id);
     
     if (JSON.stringify(user.cards[index].cards[cardIndex]) === JSON.stringify(oldCard)) {
       user.cards[index].cards[cardIndex] = newCard;
-
       let folderCards = user.cards[index].cards;
-
-      let pQuery = { id: id };
-      let pFolder = await Public.findOne(pQuery);
       pFolder.cards = [...folderCards];
       
       pFolder.save();

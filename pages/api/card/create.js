@@ -12,6 +12,8 @@ export default async function handler(req, res) {
     return;
   }
 
+  const profile = session.user;
+
   const { id, question, answer } = JSON.parse(req.body);
   let query = { "cards.id": id };
 
@@ -19,12 +21,18 @@ export default async function handler(req, res) {
   let user = await Users.findOne(query);
 
   if (user) {
-    let index = user.cards.findIndex(folder => folder.id === id);
-    let current = user.cards[index].cards;
-    user.cards[index].cards = [...current, { question: question.toString(), answer: answer.toString() }];
-
     let pQuery = { id: id };
     let pFolder = await Public.findOne(pQuery);
+
+    if (!pFolder.emails.includes(profile.email)) {
+      res.redirect("/");
+      return;
+    }
+
+    let index = user.cards.findIndex(folder => folder.id === id);
+    let current = user.cards[index].cards;
+    
+    user.cards[index].cards = [...current, { question: question.toString(), answer: answer.toString() }];
     pFolder.cards = user.cards[index].cards;
     
     pFolder.save();

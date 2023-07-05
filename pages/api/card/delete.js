@@ -11,6 +11,8 @@ export default async function handler(req, res) {
     res.redirect("/");
     return;
   }
+  
+  const profile = session.user;
 
   const { id, index, question, answer } = JSON.parse(req.body);
   let query = { "cards.id": id };
@@ -20,6 +22,14 @@ export default async function handler(req, res) {
   let user = await Users.findOne(query);
 
   if (user) {
+    let pQuery = { id: id };
+    let pFolder = await Public.findOne(pQuery);
+
+    if (!pFolder.emails.includes(profile.email)) {
+      res.redirect("/");
+      return;
+    }
+
     let newCards = user.cards;
     let folder = user.cards.findIndex(folder => folder.id === id);
 
@@ -28,10 +38,8 @@ export default async function handler(req, res) {
     if (JSON.stringify(cards[index]) === JSON.stringify(card)) {
       cards.splice(index, 1);
       newCards[folder].cards = [...cards];
+      
       user.cards = [...newCards];
-
-      let pQuery = { id: id };
-      let pFolder = await Public.findOne(pQuery);
       pFolder.cards = [...cards];
       
       pFolder.save();
