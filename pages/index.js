@@ -3,7 +3,6 @@ import Spinner from "@/components/spinner";
 import Toolbar from "@/components/toolbar";
 import Head from "next/head";
 import { signIn, useSession } from "next-auth/react"
-import { SnackbarProvider } from "notistack";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -98,7 +97,7 @@ export default function Home() {
   }
 
   return (
-    <SnackbarProvider preventDuplicate>
+    <>
       <Head>
         <title>FlashCards</title>
       </Head>
@@ -109,6 +108,6 @@ export default function Home() {
         </form>
       </center>
       {status === "authenticated" ? <FolderPage /> : <Spinner />}
-    </SnackbarProvider> 
+    </> 
   )
 }
