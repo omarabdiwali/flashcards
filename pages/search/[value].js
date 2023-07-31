@@ -72,14 +72,14 @@ export default function Page() {
   useEffect(() => {
     window.addEventListener("resize", getLayout);
     return () => {
-      window.addEventListener("resize", getLayout);
+      window.removeEventListener("resize", getLayout);
     }
   }, [getLayout]);
 
   useEffect(() => {
     window.addEventListener("scroll", getLocation);
     return () => {
-      window.addEventListener("scroll", getLocation);
+      window.removeEventListener("scroll", getLocation);
     }
   }, [getLocation]);
 
@@ -89,15 +89,6 @@ export default function Page() {
     let search = router.query.value;
     setSearch(search);
     setCurValue(`'${search}'`);
-
-    search = encodeURIComponent(search);
-    search = search.replace(/%20/g, "+");
-    
-    history.replaceState({}, "Title", `/search/${search}`);
-    
-    search = search.replace(/\+/g, " ");
-    search = decodeURIComponent(search);
-
     search = search.replace(/\\/g, String.raw`\\`);
 
     fetch('/api/search', {

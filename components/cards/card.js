@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { enqueueSnackbar } from "notistack";
 import { BsPlusSquare, BsArrowRightShort, BsArrowLeftShort, BsPlusCircle } from "react-icons/bs";
 import CardModal from "./cardModal";
@@ -10,7 +10,7 @@ export default function Card({ cards, access, id }) {
   const [index, setIndex] = useState(0);
   const [ques, setQues] = useState();
   const [ans, setAns] = useState();
-  const [cardLength, setCardLength] = useState(0);
+  const [cardLength, setCardLength] = useState(cards.length);
   const [page, setPage] = useState("cards");
  
   const [pageNumber, setPageNumber] = useState(1);
@@ -18,6 +18,24 @@ export default function Card({ cards, access, id }) {
   const [pageEnd, setPageEnd] = useState(5);
   const [length, setLength] = useState(5);
   const [pages, setPages] = useState(1);
+
+  const moveCard = useCallback((e) => {
+    if (e.key == "ArrowLeft") {
+      changeCard("back");
+    } else if (e.key == "ArrowRight") {
+      changeCard("next");
+    } else if (e.key == "Spacebar" || e.key == " ") {
+      e.preventDefault();
+      setClicked(!clicked);
+    }
+  }, [index, clicked])
+
+  useEffect(() => {
+    window.addEventListener("keydown", moveCard);
+    return () => {
+      window.removeEventListener("keydown", moveCard);
+    }
+  }, [moveCard])
 
   useEffect(() => {
     if (cards.length > 0) {
@@ -51,9 +69,9 @@ export default function Card({ cards, access, id }) {
   }
 
   const changeCard = (type) => {
-    if (type == "back") {
+    if (type == "back" && index > 0) {
       setIndex(index - 1);
-    } else {
+    } else if (type == "next" && index + 1 < cardLength) {
       setIndex(index + 1);
     }
   }
