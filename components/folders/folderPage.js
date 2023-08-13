@@ -16,7 +16,6 @@ export default function FolderPage() {
     fetch("/api/folders").then(res => res.json())
     .then(data => {
       let folders = data.folders;
-      folders.sort((folder, folder1) => (folder1.emails[0] === session.user.email && folder.emails[0] !== session.user.email) ? 1 : (folder.emails[0] === session.user.email && folder1.emails[0] !== session.user.email) ? -1 : 0);
       setFolders(folders);
       setCompleted(true);
     }).catch(err => console.error(err));

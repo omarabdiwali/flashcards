@@ -18,7 +18,7 @@ export default function Folder({ folder, deleteFolder }) {
 
   useEffect(() => {
     if (status === "authenticated") {
-      setCreator(folder.emails[0] === session.user.email);
+      setCreator(folder.emails);
     }
   }, [status])
 

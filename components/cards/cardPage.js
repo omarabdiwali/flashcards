@@ -7,9 +7,11 @@ export default function CardPage({ id }) {
   const [cards, setCards] = useState([]);
   const [completed, setCompleted] = useState(false);
   const [access, setAccess] = useState(false);
-  const [folder, setFolder] = useState();
+  const [name, setName] = useState("");
+  const [user, setUser] = useState("");
+  const [date, setDate] = useState("");
 
-  const { data: session, status } = useSession();
+  const { data: _, status } = useSession();
 
   useEffect(() => {
     if (status === "loading") return;
@@ -18,11 +20,13 @@ export default function CardPage({ id }) {
       method: "POST",
       body: JSON.stringify({ id: id })
     }).then(res => res.json()).then(data => {
-      if (status === "authenticated") {
-        setAccess(data.folder.emails.includes(session.user.email));
-      }
-      setCards(data.folder.cards);
-      setFolder(data.folder);
+      
+      setAccess(data.access);
+      setCards(data.cards);
+      setName(data.name);
+      setDate(data.date);
+      setUser(data.user);
+
       setCompleted(true);
     }).catch(err => console.error(err));
   }, [id, status])
@@ -32,8 +36,8 @@ export default function CardPage({ id }) {
       {completed ? (
         <>
           <div className="flex text-xl font-bold m-5">
-            <div className="flex-1">{folder.folder} / By: {folder.user}</div>
-            <div>Created on: {folder.date.toString().substring(0, 10)}</div>
+            <div className="flex-1">{name} / By: {user}</div>
+            <div>Created on: {date.toString().substring(0, 10)}</div>
           </div>
           <div className="flex h-screen">
             <div className="w-full">

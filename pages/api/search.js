@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   const { search } = JSON.parse(req.body);
   await dbConnect();
 
-  let publicFolders = await Public.find({ folder: { "$regex": search, "$options": "ix" }, public: true });
+  let publicFolders = await Public.find({ folder: { "$regex": search, "$options": "i" }, public: true }).select("-emails");
   
   if (publicFolders) {
     res.status(200).json({ folders: publicFolders });
