@@ -10,7 +10,8 @@ export default function Page() {
   const router = useRouter();
   const [approved, setApproved] = useState(false);
   const [completed, setCompleted] = useState(false);
-  const [folder, setFolder] = useState();
+  const [name, setName] = useState("");
+  const [id, setID] = useState("");
   const [answer, setAnswer] = useState("");
 
   useEffect(() => {
@@ -23,10 +24,11 @@ export default function Page() {
       }).then(res => res.json()).then(data => {
         setAnswer(data.answer);
         if (data.answer === "Folder is public.") {
-          setFolder(data.folder);
+          setName(data.name);
+          setID(data.id);
           setApproved(true);
           setCompleted(true);
-          let title = encodeURIComponent(data.folder.folder);
+          let title = encodeURIComponent(data.name);
           window.history.replaceState({}, "Title", `/public/${router.query.id[0]}/${title}`);
         } else {
           setCompleted(true);
@@ -77,14 +79,14 @@ export default function Page() {
   return (
     <>
       <Head>
-        <title>{folder.folder} | FlashCards</title>
+        <title>{name} | FlashCards</title>
       </Head>
 
       <Toolbar />
 
       <div className="flex h-screen">
         <div className="w-full">
-          <CardPage id={folder.id} />
+          <CardPage id={id} />
         </div>
       </div>
     </>

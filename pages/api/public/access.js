@@ -25,7 +25,7 @@ export default async function handler(req, res) {
 
   if (folder) {
     if (folder.public || folder.emails.includes(email)) {
-      res.status(200).send({ folder: folder, answer: "Folder is public." });
+      res.status(200).send({ name: folder.folder, id: folder.id, answer: "Folder is public." });
     } else {
       res.status(200).send({ answer: "Folder is private." });
     }
