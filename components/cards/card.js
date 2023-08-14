@@ -19,24 +19,6 @@ export default function Card({ cards, access, id }) {
   const [length, setLength] = useState(5);
   const [pages, setPages] = useState(1);
 
-  const moveCard = useCallback((e) => {
-    if (e.key == "ArrowLeft") {
-      changeCard("back");
-    } else if (e.key == "ArrowRight") {
-      changeCard("next");
-    } else if (e.key == "Spacebar" || e.key == " ") {
-      e.preventDefault();
-      setClicked(!clicked);
-    }
-  }, [index, clicked])
-
-  useEffect(() => {
-    window.addEventListener("keydown", moveCard);
-    return () => {
-      window.removeEventListener("keydown", moveCard);
-    }
-  }, [moveCard])
-
   useEffect(() => {
     if (cards.length > 0) {
       setQues(cards[index].question);
