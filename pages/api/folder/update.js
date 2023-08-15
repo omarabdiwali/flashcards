@@ -20,15 +20,22 @@ export default async function handler(req, res) {
 
   if (user) {
     let index = user.cards.findIndex(folder => folder.id === id);
-    user.cards[index].folder = folder;
-    user.save();
-
     let pQuery = { id: id };
-    
     let pub = await Public.findOne(pQuery);
+
+    if (!pub) {
+      res.status(200).json({ answer: "Changes have been made, page reloading!" });
+      return;
+    }
+
     pub.folder = folder;
+    user.cards[index].folder = folder;
+    
+    user.save();
     pub.save()  
     
    res.status(200).json({ answer: "Folder has been updated." });
+  } else {
+    res.status(200).json({ answer: "Changes have been made, page reloading!" });
   }
 }

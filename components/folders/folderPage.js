@@ -27,7 +27,7 @@ export default function FolderPage() {
       body: JSON.stringify({ name: folder })
     }).then(res => res.json()).then(data => {
       enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "success" });
-      window.location.reload();
+      setTimeout(() => window.location.reload(), 1000);
     }).catch(err => console.error(err));
   }
 
@@ -37,7 +37,7 @@ export default function FolderPage() {
       body: JSON.stringify({ id: id, folder: name })
     }).then(res => res.json()).then(data => {
       enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "success" });
-      window.location.reload();
+      setTimeout(() => window.location.reload(), 1000);
     }).catch(err => {
       console.error(err);
     })

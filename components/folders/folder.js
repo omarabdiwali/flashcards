@@ -54,8 +54,13 @@ export default function Folder({ folder, deleteFolder }) {
       method: "POST",
       body: JSON.stringify({ id: folder.id, folder: newName })
     }).then(res => res.json()).then(data => {
-      enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "success" });
-      setName(newName);
+      if (data.answer == "Folder has been updated.") {
+        enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "success" });
+        setName(newName);
+      } else {
+        enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "warning" });
+        setTimeout(() => window.location.reload(), 1000);
+      }
     }).catch(err => console.error(err));
   }
 

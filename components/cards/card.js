@@ -72,7 +72,7 @@ export default function Card({ cards, access, id }) {
           enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "success" })
         } else {
           enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "warning" });
-          setTimeout(() => window.location.reload(), 1500);
+          setTimeout(() => window.location.reload(), 1000);
         }
       })
       .catch(err => console.error(err));
@@ -98,18 +98,23 @@ export default function Card({ cards, access, id }) {
       method: "POST",
       body: JSON.stringify(card)
     }).then(res => res.json()).then(data => {
-      enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "success" });
+      if (data.answer == "Created card!") {
+        enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "success" });
+        
+        if (cards.length == 0) {
+          setQues(q);
+          setAns(a);
+          setIndex(0);
+        }
+    
+        cards.push({ question: q, answer: a });
+        setCardLength(cards.length);
+        setPages(Math.ceil(cards.length / 5));
+      } else {
+        enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "warning" });
+        setTimeout(() => window.location.reload(), 1000);
+      }
     }).catch(err => console.error(err));
-
-    if (cards.length == 0) {
-      setQues(q);
-      setAns(a);
-      setIndex(0);
-    }
-
-    cards.push({question: q, answer: a});
-    setCardLength(cards.length);
-    setPages(Math.ceil(cards.length / 5));
   }
 
   const update = (q, a, updateIndex = null) => {    
@@ -128,7 +133,7 @@ export default function Card({ cards, access, id }) {
         enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "success" });
       } else {
         enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "warning" });
-        setTimeout(() => window.location.reload(), 1500);
+        setTimeout(() => window.location.reload(), 1000);
       }
     }).catch(err => console.error(err));
 

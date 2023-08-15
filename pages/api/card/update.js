@@ -25,9 +25,9 @@ export default async function handler(req, res) {
   if (user) {
     let pQuery = { id: id };
     let pFolder = await Public.findOne(pQuery);
-
-    if (!pFolder.emails.includes(profile.email)) {
-      res.redirect("/");
+    
+    if (!pFolder || pFolder.emails.includes(profile.email) == false) {
+      res.status(200).json({ answer: "Changes have been made, page reloading!" });
       return;
     }
 
@@ -51,7 +51,6 @@ export default async function handler(req, res) {
   }
 
   else {
-    res.redirect("/");
+    res.status(200).json({ answer: "Changes have been made, page reloading!" });
   }
-
 }

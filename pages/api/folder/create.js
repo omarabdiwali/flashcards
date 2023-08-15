@@ -42,6 +42,7 @@ export default async function handler(req, res) {
 
   else {
     res.redirect("/");
+    return;
   }
 
   res.status(200).json({ answer: `Created '${name}' folder!` });

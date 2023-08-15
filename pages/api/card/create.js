@@ -24,8 +24,8 @@ export default async function handler(req, res) {
     let pQuery = { id: id };
     let pFolder = await Public.findOne(pQuery);
 
-    if (!pFolder.emails.includes(profile.email)) {
-      res.redirect("/");
+    if (!pFolder || pFolder.emails.includes(profile.email) == false) {
+      res.status(200).json({ answer: "Changes have been made, page reloading!" });
       return;
     }
 
@@ -37,7 +37,9 @@ export default async function handler(req, res) {
     
     pFolder.save();
     user.save();
-  }
 
-  res.status(200).json({ answer: "Created card!" });
+    res.status(200).json({ answer: "Created card!" });
+  } else {
+    res.status(200).json({ answer: "Changes have been made, page reloading!" });
+  }
 }
