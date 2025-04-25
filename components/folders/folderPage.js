@@ -9,7 +9,7 @@ import { useSession } from "next-auth/react";
 export default function FolderPage() {
   const [folders, setFolders] = useState([]);
   const [completed, setCompleted] = useState(false);
-  const { data: session, status } = useSession();
+  const { data: _, status } = useSession();
   
   useEffect(() => {
     if (status === "loading") return;
@@ -27,7 +27,7 @@ export default function FolderPage() {
       body: JSON.stringify({ name: folder })
     }).then(res => res.json()).then(data => {
       enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "success" });
-      setTimeout(() => window.location.reload(), 1000);
+      setFolders(prev => [data.item, ...prev]);
     }).catch(err => console.error(err));
   }
 
@@ -37,7 +37,9 @@ export default function FolderPage() {
       body: JSON.stringify({ id: id, folder: name })
     }).then(res => res.json()).then(data => {
       enqueueSnackbar(data.answer, { autoHideDuration: 3000, variant: "success" });
-      setTimeout(() => window.location.reload(), 1000);
+      let foldersCopy = folders.slice();
+      foldersCopy = foldersCopy.filter(folder => folder.id != id);
+      setFolders(foldersCopy);
     }).catch(err => {
       console.error(err);
     })
@@ -62,9 +64,9 @@ export default function FolderPage() {
       {!completed ? <Spinner /> : ""}
       <div className={`flex m-auto space-x-5 pt-4 pb-7 space-y-5 px-5 flex-wrap rounded-lg mt-5`}>
         <div></div>
-        {folders.map((folder, index) => {
+        {folders.map((folder) => {
           return (
-            <Folder key={index} folder={folder} deleteFolder={deleteFolder} />
+            <Folder key={folder.id} folder={folder} deleteFolder={deleteFolder} />
           )
         })}
       </div>

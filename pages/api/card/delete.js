@@ -32,7 +32,6 @@ export default async function handler(req, res) {
 
     let newCards = user.cards;
     let folder = user.cards.findIndex(folder => folder.id === id);
-
     let cards = user.cards[folder].cards;
 
     if (JSON.stringify(cards[index]) === JSON.stringify(card)) {

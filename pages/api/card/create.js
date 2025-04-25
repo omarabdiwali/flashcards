@@ -13,7 +13,6 @@ export default async function handler(req, res) {
   }
 
   const profile = session.user;
-
   const { id, question, answer } = JSON.parse(req.body);
   let query = { "cards.id": id };
 
