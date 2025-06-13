@@ -1,5 +1,6 @@
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../auth/[...nextauth]"
+import { modifySearchEntry } from "@/utils/searchService";
 import dbConnect from "@/utils/dbConnect";
 import Users from "@/models/Users";
 import Public from "@/models/Public";
@@ -38,7 +39,8 @@ export default async function handler(req, res) {
     user.save();
     data = { id: folder.id, user: user.name, emails: [profile.email], folder: folder.folder, cards: folder.cards, date: folder.date, public: folder.public };
 
-    await Public.create(data);
+    const createdFolder = await Public.create(data);
+    await modifySearchEntry(createdFolder._id, createdFolder.folder, "add");
   }
 
   else {

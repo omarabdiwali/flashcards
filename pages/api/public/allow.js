@@ -3,6 +3,7 @@ import { authOptions } from "../auth/[...nextauth]"
 import dbConnect from "@/utils/dbConnect";
 import Users from "@/models/Users";
 import Public from "@/models/Public";
+import { modifySearchVisibility } from "@/utils/searchService";
 
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
@@ -27,6 +28,7 @@ export default async function handler(req, res) {
     let pQuery = { id: id };
     let publicFolder = await Public.findOne(pQuery);
     
+    await modifySearchVisibility(publicFolder._id, publicFolder.folder, true);
     publicFolder.public = true;
     publicFolder.save()
 

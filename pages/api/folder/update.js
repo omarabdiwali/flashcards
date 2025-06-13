@@ -3,6 +3,7 @@ import { authOptions } from "../auth/[...nextauth]"
 import dbConnect from "@/utils/dbConnect";
 import Users from "@/models/Users";
 import Public from "@/models/Public";
+import { renameSearchEntry } from "@/utils/searchService";
 
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
@@ -28,13 +29,15 @@ export default async function handler(req, res) {
       return;
     }
 
+    const prevFolder = pub.folder;    
     pub.folder = folder;
     user.cards[index].folder = folder;
-    
+
     user.save();
-    pub.save()  
+    pub.save();
     
-   res.status(200).json({ answer: "Folder has been updated." });
+    await renameSearchEntry(pub._id, prevFolder, folder, pub.public);
+    res.status(200).json({ answer: "Folder has been updated." });
   } else {
     res.status(200).json({ answer: "Changes have been made, page reloading!" });
   }

@@ -3,6 +3,7 @@ import { authOptions } from "../auth/[...nextauth]"
 import dbConnect from "@/utils/dbConnect";
 import Users from "@/models/Users";
 import Public from "@/models/Public";
+import { modifySearchEntry } from "@/utils/searchService";
 
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
@@ -24,7 +25,8 @@ export default async function handler(req, res) {
     current.splice(index, 1);
 
     let pQuery = { id: id };
-    await Public.findOneAndDelete(pQuery);
+    const deletedFolder = await Public.findOneAndDelete(pQuery);
+    await modifySearchEntry(deletedFolder._id, deletedFolder.folder, "remove");
     
     user.cards = current;
     user.save();

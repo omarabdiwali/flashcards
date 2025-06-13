@@ -1,5 +1,4 @@
-import dbConnect from "@/utils/dbConnect";
-import Public from "@/models/Public";
+import { getSearchValues } from "@/utils/searchService";
 
 export default async function handler(req, res) {
   if (!req.body) {
@@ -8,9 +7,7 @@ export default async function handler(req, res) {
   }
   
   const { search } = JSON.parse(req.body);
-  await dbConnect();
-
-  let publicFolders = await Public.find({ folder: { "$regex": search, "$options": "i" }, public: true }).select("-emails");
+  let publicFolders = await getSearchValues(search);
   
   if (publicFolders) {
     res.status(200).json({ folders: publicFolders });
